@@ -1,0 +1,5 @@
+http://mozilla.mirror.rafal.ca/addons/71/enigmail-0.95.1-tb+sm.xpi
+http://gd.tuwien.ac.at/infosys/browsers/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
+http://mozilla.phphosts.org/addons/71/enigmail-0.95.1-tb+sm.xpi
+http://mozilla.saix.net/addons/71/enigmail-0.95.1-tb+sm.xpi
+http://pv-mirror02.mozilla.org/pub/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
