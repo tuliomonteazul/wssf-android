@@ -190,9 +190,11 @@ public class InvocationThread extends WSSFInvocationThread {
 
 				// check for the Content-Length header
 				pos = data.toLowerCase().indexOf("content-length:");
-				if (pos >= 0)
+				if (pos >= 0) {
 					contentLength = Integer.parseInt(data.substring(pos + 15)
 							.trim());
+					setContentLength(contentLength);
+				}
 			}
 
 			// add a blank line to terminate the header info

@@ -1,16 +1,12 @@
 package br.unifor.wssf.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,8 +16,12 @@ import br.unifor.wssf.proxy.experiment.ExcelExperimentDAO;
 import br.unifor.wssf.proxy.experiment.ExperimentDAO;
 import br.unifor.wssf.proxy.experiment.ExperimentManager;
 import br.unifor.wssf.view.controller.ProgressController;
+import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
 public class ProgressActivity extends Activity {
+	
+	private List<ReplicaProgressBar> listProgressBar = new ArrayList<ReplicaProgressBar>();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,18 +43,9 @@ public class ProgressActivity extends Activity {
 	
 
 	private void createReplicasProgress(ArrayList<String> listReplicas) {
-		int i = 1;
 		for (String replica : listReplicas) {
-			ProgressBar progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
-			final float[] roundedCorners = new float[] { 5, 5, 5, 5, 5, 5, 5, 5 };
-			ShapeDrawable pgDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
-			pgDrawable.getPaint().setColor(Color.RED);
-			ClipDrawable progress = new ClipDrawable(pgDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
-			progressBar.setProgressDrawable(progress);
-			progressBar.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.progress_horizontal));
-			progressBar.setMax(100);
-			progressBar.setProgress(45);
-			progressBar.setId(i + 100);
+			ReplicaProgressBar progressBar = new ReplicaProgressBar(this);
+			listProgressBar.add(progressBar);
 			
 			LinearLayout layout = (LinearLayout) findViewById(R.id.layoutPrincipal);
 	
@@ -98,4 +89,7 @@ public class ProgressActivity extends Activity {
 		
 	}
 
+	public ProgressBar getProgressBar(int id) {
+		return listProgressBar.get(id);
+	}
 }

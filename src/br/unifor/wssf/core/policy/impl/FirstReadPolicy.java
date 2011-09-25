@@ -52,9 +52,11 @@ public class FirstReadPolicy extends ServerSelectionPolicy implements WSSFInvoca
 			firstRead = true;
 			firstReadInvocationThread = null;
 			
+			int count = 0;
 			for (URL u : replicaList){
 				byte[] newRequest = HttpUtils.replaceURL(url,u,request);
 				WSSFInvocationThread invocationThread = proxy.createWSSFInvocationThread(newRequest);
+				invocationThread.setReplicaID(count++);
 				invocationList.add(invocationThread);
 //				monitor.addWSSFInvocationThread(invocationThread);
 			}

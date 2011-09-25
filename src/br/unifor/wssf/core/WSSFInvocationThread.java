@@ -15,7 +15,12 @@ public abstract class WSSFInvocationThread extends Thread {
 	private byte[] request;
 	private String hostName;
 	private int hostPort;
+	private int contentLength;
+	private int replicaID;
 	
+	private Boolean isRunning = Boolean.TRUE;
+	private List<WSSFInvocationListener> invocationListenerList = new ArrayList<WSSFInvocationListener>();
+    
 	private Logger logger = Logger.getLogger("experimentLog");
 	
 	public WSSFInvocationThread(byte[] request) throws MalformedURLException {
@@ -66,8 +71,22 @@ public abstract class WSSFInvocationThread extends Thread {
 	public int getBytesReceived() {
 		return bytesReceived;
 	}
+	
+	public int getContentLength() {
+		return contentLength;
+	}
 
-	private Boolean isRunning = Boolean.TRUE;
+	public void setContentLength(int contentLength) {
+		this.contentLength = contentLength;
+	}
+
+	public int getReplicaID() {
+		return replicaID;
+	}
+
+	public void setReplicaID(int replicaID) {
+		this.replicaID = replicaID;
+	}
 	
 	public boolean isRunning() {
 		synchronized (isRunning) {
@@ -83,8 +102,6 @@ public abstract class WSSFInvocationThread extends Thread {
 		}
 	}
 	
-	private List<WSSFInvocationListener> invocationListenerList = new ArrayList<WSSFInvocationListener>();
-    
 	public List<WSSFInvocationListener> getInvocationListenerList() {
 		return invocationListenerList;
 	}
