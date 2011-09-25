@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.proxy.experiment.ExcelExperimentDAO;
@@ -34,25 +36,24 @@ public class WSSFActivity extends Activity {
         
         createComboPolicys();
         
+        final Activity activity = this;
         Button btExperimento = (Button) findViewById(R.id.btExperimento);
         btExperimento.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				callProgressActivity();
-				// TODO trocar para Service
-				new Thread() {
-					@Override
-					public void run() {
-						super.run();
-						doExperiment();
-					}
-				}.start();
+				
+				CheckBox checkProgresso = (CheckBox) findViewById(R.id.checkProgresso);
+				if (checkProgresso.isChecked()) {
+					callProgressActivity();
+				} else {
+					Toast.makeText(activity, "Iniciando experimento", Toast.LENGTH_SHORT).show();
+					doExperiment();
+				}
 			}
 
 		});
         
-        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 	private void createComboReplicas() {
@@ -104,44 +105,57 @@ public class WSSFActivity extends Activity {
 
 	protected void doExperiment() {
 
-		try {
-			
-			final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
-			String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
-			
-			final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
-			String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
-			
-			final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
-			String clientTimeout = editTimeout.getText().toString();
-			
-			new ExperimentManager(replica, policy, Integer.parseInt(clientTimeout)).execute();
-//			new ExperimentManager("R1", "FC", 180).execute();
-			
-//			System.exit(0);
-		} catch (Exception e1) {
-//			e1.printStackTrace(new PrintStream("err1.txt"));
-			e1.printStackTrace();
-			try {
-			  Log.e("testeProxy", "Ocorreu um erro: " + e1.getMessage());
-			  Log.e("testeProxy", "Fim do Experimento: "+ExperimentManager.experiment);
-			  ExperimentDAO dao = new ExcelExperimentDAO();
-			  dao.insertExperiment(ExperimentManager.experiment);
-			  dao.commit();
-			} catch (Exception e2) {
-//				e2.printStackTrace(new PrintStream("err2.txt"));
-				e2.printStackTrace();
+		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
+		final String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
+		
+		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
+		final String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
+		
+		final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
+		final String clientTimeout = editTimeout.getText().toString();
+		
+		new Thread() {
+			@Override
+			public void run() {
+		
+				try {
+					new ExperimentManager(replica, policy, Integer.parseInt(clientTimeout)).execute();
+		//			new ExperimentManager("R1", "FC", 180).execute();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					try {
+					  Log.e("testeProxy", "Ocorreu um erro: " + e1.getMessage());
+					  Log.e("testeProxy", "Fim do Experimento: "+ExperimentManager.experiment);
+					  ExperimentDAO dao = new ExcelExperimentDAO();
+					  dao.insertExperiment(ExperimentManager.experiment);
+					  dao.commit();
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
 			}
-//			System.exit(1);
-		}
+		}.start();
 	}
 	
 
 	private void callProgressActivity() {
 		Intent intent = new Intent(this, ProgressActivity.class);
 		
+		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
+		String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
+		
+		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
+		String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
+		
+		final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
+		String clientTimeout = editTimeout.getText().toString();
+		
 		Bundle params = new Bundle();
 		params.putStringArrayList("listReplicas", listReplicas);
+		params.putString("replica", replica);
+		params.putString("policy", policy);
+		params.putInt("clientTimenout", Integer.parseInt(clientTimeout));
 		intent.putExtras(params);
 		
 		startActivity(intent);

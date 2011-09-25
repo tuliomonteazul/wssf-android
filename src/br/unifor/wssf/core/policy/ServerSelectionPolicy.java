@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFProxy;
 import br.unifor.wssf.core.replicas.ReplicaDAO;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
@@ -18,6 +19,7 @@ public abstract class ServerSelectionPolicy {
 
 	private List<URL> replicaList;
 	private WSSFProxy proxy;
+	protected WSSFInvocationListener[] invocationListeners;
 		
 	public WSSFProxy getProxy() {
 		return proxy;
@@ -41,5 +43,9 @@ public abstract class ServerSelectionPolicy {
 	}
 	
 	public abstract byte[] invoke(byte[] request)throws Exception;
+
+	public void setInvocationListener(WSSFInvocationListener... invocationListeners) {
+		this.invocationListeners = invocationListeners;
+	}
 	
 }

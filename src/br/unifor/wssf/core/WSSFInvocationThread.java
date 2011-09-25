@@ -89,8 +89,10 @@ public abstract class WSSFInvocationThread extends Thread {
 		return invocationListenerList;
 	}
     
-	public void addWSSFInvocationListener(WSSFInvocationListener invocationListener){
-		this.invocationListenerList.add(invocationListener);
+	public void addWSSFInvocationListener(WSSFInvocationListener... invocationListeners){
+		for (WSSFInvocationListener invocationListener : invocationListeners) {
+			this.invocationListenerList.add(invocationListener);
+		}
 	}
 	
 	public abstract void closeConnection() throws IOException;

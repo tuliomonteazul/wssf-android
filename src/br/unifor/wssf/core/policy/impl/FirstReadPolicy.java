@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import br.unifor.wssf.core.HttpUtils;
-import br.unifor.wssf.core.WSSFGraphicMonitor;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
@@ -35,7 +34,7 @@ public class FirstReadPolicy extends ServerSelectionPolicy implements WSSFInvoca
 	private boolean firstRead;
 	private WSSFInvocationThread firstReadInvocationThread;
 	private byte[] response;
-	List<WSSFInvocationThread> invocationList; 
+	List<WSSFInvocationThread> invocationList;
 	List<URL> replicaList;
 	
 	private Logger logger = Logger.getLogger("experimentLog");
@@ -45,8 +44,8 @@ public class FirstReadPolicy extends ServerSelectionPolicy implements WSSFInvoca
 		URL url = HttpUtils.getURL(request);
 		replicaList = getReplicaList(url);
 		WSSFProxy proxy = getProxy();
+//		WSSFGraphicMonitor monitor = new WSSFGraphicMonitor("FirstReadPolicy");
 		invocationList = new ArrayList<WSSFInvocationThread>();
-		WSSFGraphicMonitor monitor = new WSSFGraphicMonitor("FirstReadPolicy");
 		
 		while(replicaList.size() > 0){
 			
@@ -62,7 +61,11 @@ public class FirstReadPolicy extends ServerSelectionPolicy implements WSSFInvoca
 			
 			for (WSSFInvocationThread i : invocationList){
 				 i.addWSSFInvocationListener(this);
-				 i.addWSSFInvocationListener(monitor);
+				 
+				 if (invocationListeners != null) {
+					 i.addWSSFInvocationListener(invocationListeners);
+				 }
+						 
 				 logger.info("Iniciando WSSFInvocationThread: " + i);
 				 i.start();
 			}

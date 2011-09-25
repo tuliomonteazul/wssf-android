@@ -10,11 +10,8 @@ import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URL;
 import java.util.List;
 
-import android.util.Log;
-import br.unifor.wssf.core.HttpUtils;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 

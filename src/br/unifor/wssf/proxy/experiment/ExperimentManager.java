@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import android.util.Log;
+import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
@@ -108,12 +109,12 @@ public class ExperimentManager {
 		}
 		
 	}
-	
-	public void execute() throws Exception{
+    
+	public void execute(WSSFInvocationListener... invocationListeners) throws Exception{
 		
 //		logger.info("Iniciando proxy na porta 8080...");
 		Log.d("experiment", "Iniciando proxy na porta 8080...");
-		jProxy p = new jProxy(8080,"",0,60);
+		jProxy p = new jProxy(8080,"",0,60, invocationListeners);
 		
 		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/log_proxy_"+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(currentTime)) +".txt");
 		File logDir = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/");

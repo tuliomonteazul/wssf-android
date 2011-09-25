@@ -25,7 +25,10 @@
 		<requestFocus></requestFocus>
 	</EditText>
 	
+	<CheckBox android:text="Exibir progresso" android:id="@+id/checkProgresso" 
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+	
 	<Button android:text="Iniciar Experimento" android:id="@+id/btExperimento"
-		android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
 </LinearLayout>
 

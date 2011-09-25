@@ -70,6 +70,7 @@ import java.net.Socket;
 
 import android.util.Log;
 import br.unifor.wssf.core.HttpUtils;
+import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
 import br.unifor.wssf.core.policy.ServerSelectionPolicy;
@@ -80,11 +81,12 @@ public class jProxy extends Thread {
 
 	private ServerSocket server = null;
 	private int thisPort = DEFAULT_PORT;
-	private String fwdServer = "";
-	private int fwdPort = 0;
-	private int ptTimeout = ProxyThread.DEFAULT_TIMEOUT;
+	private String fwdServer;
+	private int fwdPort;
+	private int ptTimeout;
 	private int debugLevel = 2;
-	private PrintStream debugOut = System.out;
+	
+	private WSSFInvocationListener[] invocationListeners;
 
 	/* here's a main method, in case you want to run this by itself */
 	public static void main(String args[]) {
@@ -152,20 +154,19 @@ public class jProxy extends Thread {
 	 * work)
 	 */
 	public jProxy(int port) {
-		thisPort = port;
+		this(port, "", 0);
 	}
 
 	public jProxy(int port, String proxyServer, int proxyPort) {
-		thisPort = port;
-		fwdServer = proxyServer;
-		fwdPort = proxyPort;
+		this(port, proxyServer, proxyPort, ProxyThread.DEFAULT_TIMEOUT);
 	}
 
-	public jProxy(int port, String proxyServer, int proxyPort, int timeout) {
+	public jProxy(int port, String proxyServer, int proxyPort, int timeout, WSSFInvocationListener... invocationListeners) {
 		thisPort = port;
 		fwdServer = proxyServer;
 		fwdPort = proxyPort;
 		ptTimeout = timeout;
+		this.invocationListeners = invocationListeners;
 	}
 
 	/*
@@ -228,7 +229,7 @@ public class jProxy extends Thread {
 
 			while (true) {
 				Socket client = server.accept();
-				ProxyThread t = new ProxyThread(client, fwdServer, fwdPort);
+				ProxyThread t = new ProxyThread(client, fwdServer, fwdPort, invocationListeners);
 //				t.setDebug(debugLevel, debugOut);
 				t.setTimeout(ptTimeout);
 				t.start();
@@ -251,10 +252,12 @@ public class jProxy extends Thread {
  */
 class ProxyThread extends Thread implements WSSFProxy {
 	private Socket pSocket;
-	private String fwdServer = "";
-	private int fwdPort = 0;
+	private String fwdServer ;
+	private int fwdPort;
 	private int debugLevel = 2;
 	private PrintStream debugOut = System.out;
+
+	private WSSFInvocationListener[] invocationListeners;
 
 	// the socketTimeout is used to time out the connection to
 	// the remote server after a certain period of inactivity;
@@ -264,13 +267,14 @@ class ProxyThread extends Thread implements WSSFProxy {
 	private int socketTimeout = DEFAULT_TIMEOUT;
 
 	public ProxyThread(Socket s) {
-		pSocket = s;
+		this(s, "", 0);
 	}
 
-	public ProxyThread(Socket s, String proxy, int port) {
+	public ProxyThread(Socket s, String proxy, int port, WSSFInvocationListener... invocationListeners) {
 		pSocket = s;
 		fwdServer = proxy;
 		fwdPort = port;
+		this.invocationListeners = invocationListeners;
 	}
 
 	public void setTimeout(int timeout) {
@@ -329,8 +333,15 @@ class ProxyThread extends Thread implements WSSFProxy {
 			}
 			if (policy != null)	{								
 				policy.setProxy(this);
+				
+//				if (invocationListeners != null) {
+					policy.setInvocationListener(invocationListeners);
+//				}
+				
 				try {
+					
 					response = policy.invoke(request);
+					
 				} catch (Exception e) {
 					// tell the client there was an error
 					String errMsg = "HTTP/1.0 500\nContent Type: text/plain\n\n"
@@ -623,4 +634,5 @@ class ProxyThread extends Thread implements WSSFProxy {
 		invocationThread.setDebug(debugLevel, debugOut);
 		return invocationThread;
 	}
+	
 }
