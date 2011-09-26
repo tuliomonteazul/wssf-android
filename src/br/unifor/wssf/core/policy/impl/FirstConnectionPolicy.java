@@ -63,7 +63,11 @@ public class FirstConnectionPolicy extends ServerSelectionPolicy implements WSSF
 			
 			for (WSSFInvocationThread i : invocationList){
 				 i.addWSSFInvocationListener(this);
-				 i.addWSSFInvocationListener(monitor);
+
+				 if (invocationListeners != null) {
+					 i.addWSSFInvocationListener(invocationListeners);
+				 }
+				 
 				 logger.info("Iniciando WSSFInvocationThread: " + i);
 				 i.start();
 			}

@@ -24,7 +24,11 @@ public class NoPolicy extends ServerSelectionPolicy implements WSSFInvocationLis
 		WSSFInvocationThread i = proxy.createWSSFInvocationThread(request);
 //		monitor.addWSSFInvocationThread(i);
 		i.addWSSFInvocationListener(this);
-		i.addWSSFInvocationListener(monitor);
+		
+		if (invocationListeners != null) {
+			 i.addWSSFInvocationListener(invocationListeners);
+		 }
+		
 //		monitor.setTitle(monitor.getTitle() + " - " + i.getHostName());
 		logger.info("Iniciando WSSFInvocationThread: " + i);
 		startTime = System.currentTimeMillis();

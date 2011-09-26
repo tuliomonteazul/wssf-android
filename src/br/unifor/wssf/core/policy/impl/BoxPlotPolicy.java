@@ -77,7 +77,11 @@ public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocati
 			
 			for (WSSFInvocationThread i : invocationList){
 				 i.addWSSFInvocationListener(this);
-				 i.addWSSFInvocationListener(monitor);
+
+				 if (invocationListeners != null) {
+					 i.addWSSFInvocationListener(invocationListeners);
+				 }
+				 
 				 logger.info("Iniciando WSSFInvocationThread: " + i);
 				 i.start();
 			}

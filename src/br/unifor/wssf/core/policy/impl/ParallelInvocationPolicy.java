@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import br.unifor.wssf.core.HttpUtils;
-import br.unifor.wssf.core.WSSFGraphicMonitor;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
@@ -43,7 +42,6 @@ public class ParallelInvocationPolicy extends ServerSelectionPolicy implements W
 		URL url = HttpUtils.getURL(request);
 		List<URL> replicaList = getReplicaList(url);
 		WSSFProxy proxy = getProxy();
-		WSSFGraphicMonitor monitor = new WSSFGraphicMonitor("ParallelInvocationPolicy");
 		
 		//dataReceivedTimes = new HashMap<WSSFInvocationThread, Integer>(replicaList.size()); //Apenas p/ experimento p/ calibrar pol�tica boxplot
 		
@@ -58,7 +56,11 @@ public class ParallelInvocationPolicy extends ServerSelectionPolicy implements W
 		
 		for (WSSFInvocationThread i : invocationList){
 			 i.addWSSFInvocationListener(this);
-			 i.addWSSFInvocationListener(monitor);
+
+			 if (invocationListeners != null) {
+				 i.addWSSFInvocationListener(invocationListeners);
+			 }
+			 
 			 logger.info("Iniciando WSSFInvocationThread: " + i);
 			 i.start();
 		}

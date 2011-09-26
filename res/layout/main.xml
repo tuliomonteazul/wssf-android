@@ -21,7 +21,7 @@
 		
 	
 	<EditText android:layout_height="wrap_content" android:id="@+id/clientTimeout"
-		android:layout_width="match_parent" android:text="180">
+		android:layout_width="match_parent" android:text="60">
 		<requestFocus></requestFocus>
 	</EditText>
 	
