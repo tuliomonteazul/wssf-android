@@ -106,7 +106,16 @@ public class WSSFActivity extends Activity {
 
 		if (experimentManager != null) {
 			experimentManager.getjProxy().setCanRun(false);
-			experimentManager.getjProxy().closeSocket();
+			
+			// TODO alterar para wait/notify
+			while (experimentManager.getjProxy().isRunning()) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+//			experimentManager.getjProxy().closeSocket();
 		}
 		
 		new Thread() {

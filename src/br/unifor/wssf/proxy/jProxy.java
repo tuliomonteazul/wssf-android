@@ -240,14 +240,15 @@ public class jProxy extends Thread {
 //				debugOut.println("jProxy Thread error: " + e);
 				Log.e("proxy", "jProxy Thread error: " + e.getMessage(), e);
 		}
-
+		
 		closeSocket();
+		
 	}
 
 	public void setCanRun(boolean canRun) {
 		this.canRun = canRun;
 	}
-	
+
 }
 
 /*
