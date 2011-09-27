@@ -85,6 +85,7 @@ public class jProxy extends Thread {
 	private int fwdPort;
 	private int ptTimeout;
 	private int debugLevel = 2;
+	private boolean canRun = true;
 	
 	private WSSFInvocationListener[] invocationListeners;
 
@@ -227,7 +228,7 @@ public class jProxy extends Thread {
 //				debugOut.println("Started jProxy on port " + thisPort);
 				Log.d("proxy", "Started jProxy on port " + thisPort);
 
-			while (true) {
+			while (canRun) {
 				Socket client = server.accept();
 				ProxyThread t = new ProxyThread(client, fwdServer, fwdPort, invocationListeners);
 //				t.setDebug(debugLevel, debugOut);
@@ -243,6 +244,10 @@ public class jProxy extends Thread {
 		closeSocket();
 	}
 
+	public void setCanRun(boolean canRun) {
+		this.canRun = canRun;
+	}
+	
 }
 
 /*

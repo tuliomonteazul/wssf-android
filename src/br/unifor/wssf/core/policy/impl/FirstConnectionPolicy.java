@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import br.unifor.wssf.core.HttpUtils;
-import br.unifor.wssf.core.WSSFGraphicMonitor;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
@@ -47,16 +46,17 @@ public class FirstConnectionPolicy extends ServerSelectionPolicy implements WSSF
 		replicaList = getReplicaList(url);
 		WSSFProxy proxy = getProxy();
 		invocationList = new ArrayList<WSSFInvocationThread>();
-		WSSFGraphicMonitor monitor = new WSSFGraphicMonitor("FirstConnectionPolicy");
 		
 		while (replicaList.size() > 0){
 
 			firstConnection = true;
 			firstConnectionInvocationThread = null;
 			
+			int count = 0;
 			for (URL u : replicaList){
 				byte[] newRequest = HttpUtils.replaceURL(url,u,request);
 				WSSFInvocationThread invocationThread = proxy.createWSSFInvocationThread(newRequest);
+				invocationThread.setReplicaID(count++);
 				invocationList.add(invocationThread);
 //				monitor.addWSSFInvocationThread(invocationThread);
 			}

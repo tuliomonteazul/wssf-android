@@ -2,7 +2,6 @@ package br.unifor.wssf.core.policy.impl;
 
 import java.util.logging.Logger;
 
-import br.unifor.wssf.core.WSSFGraphicMonitor;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
@@ -20,7 +19,6 @@ public class NoPolicy extends ServerSelectionPolicy implements WSSFInvocationLis
 	public synchronized byte[] invoke(byte[] request) throws Exception {
 		
 		WSSFProxy proxy = getProxy();
-		WSSFGraphicMonitor monitor = new WSSFGraphicMonitor("NoPolicy");
 		WSSFInvocationThread i = proxy.createWSSFInvocationThread(request);
 //		monitor.addWSSFInvocationThread(i);
 		i.addWSSFInvocationListener(this);

@@ -1,5 +1,7 @@
 package br.unifor.wssf.view.controller;
 
+import java.io.IOException;
+
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
@@ -15,7 +17,7 @@ public class ProgressController implements WSSFInvocationListener {
 	}
 
 	@Override
-	public void serverResponseReceived(WSSFInvocationThread invocationThread,
+	public void serverResponseReceived(final WSSFInvocationThread invocationThread,
 			byte[] resp) {
 		Log.d("progress", "response "+ invocationThread.toString());
 		
@@ -24,6 +26,12 @@ public class ProgressController implements WSSFInvocationListener {
 		progressBar.setColor(ReplicaProgressBar.DATA_REC_COLOR);
 		progressBar.setText("dados recebidos!");
 		progressBar.setProgress(100);
+		
+		try {
+			invocationThread.stopInvocation();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -35,14 +43,13 @@ public class ProgressController implements WSSFInvocationListener {
 		progressBar.setColor(ReplicaProgressBar.CONECTED_COLOR);
 		progressBar.setText("conectado!");
 		progressBar.setProgress(100);
-//		activity.findViewById(R.id)
 	}
 
 	@Override
 	public void serverDataReceived(WSSFInvocationThread invocationThread,
 			int qtBytesReaded) {
 		Log.d("progress", "data " +invocationThread.toString());
-		
+
 		int replicaID = invocationThread.getReplicaID();
 		ReplicaProgressBar progressBar = (ReplicaProgressBar) activity.getProgressBar(replicaID);
 		progressBar.setColor(ReplicaProgressBar.DATA_REC_COLOR);

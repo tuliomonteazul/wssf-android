@@ -45,11 +45,12 @@ public class ParallelInvocationPolicy extends ServerSelectionPolicy implements W
 		
 		//dataReceivedTimes = new HashMap<WSSFInvocationThread, Integer>(replicaList.size()); //Apenas p/ experimento p/ calibrar pol�tica boxplot
 		
+		int count = 0;
 		for (URL u : replicaList){
 			byte[] newRequest = HttpUtils.replaceURL(url,u,request);
 			System.out.println(new String(newRequest));
 			WSSFInvocationThread invocationThread = proxy.createWSSFInvocationThread(newRequest);
-			//dataReceivedTimes.put(invocationThread, 0); //Apenas p/ experimento p/ calibrar pol�tica boxplot
+			invocationThread.setReplicaID(count++);
 			invocationList.add(invocationThread);
 //			monitor.addWSSFInvocationThread(invocationThread);
 		}

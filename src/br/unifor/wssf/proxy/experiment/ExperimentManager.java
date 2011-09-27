@@ -22,6 +22,7 @@ public class ExperimentManager {
     private long currentTime;
     private static Logger logger2 = Logger.getLogger("experimentLog");
     private int clientTimeout = 300000; // cinco minutos
+    private jProxy jProxy;
     
     public ExperimentManager(String replicaId, String policyId, int clientTimeout) throws SecurityException, IOException {
       this(replicaId,policyId);
@@ -38,43 +39,8 @@ public class ExperimentManager {
 		experiment.setRequestedURL(urlString);
 		experiment.setPolicyName(serverSelectionPolicyName);
 		
-		// TODO log handler
-//	    Handler fh = new FileHandler("log/"+experiment.getId()+".log");
-//	    fh.setFormatter(new SimpleFormatter());
-//	    logger.addHandler(fh);
 	}
     
-//	/**
-//	 * @param args
-//	 * @throws FileNotFoundException 
-//	 */
-//	public static void main(String[] args) throws FileNotFoundException {
-//		// TODO Remover pois foi movido para a classa Main
-//
-//		try {
-//			if (args.length == 3){
-//				new ExperimentManager(args[0].trim(),args[1].trim(),Integer.parseInt(args[2].trim())).execute();
-//			}else{
-//				new ExperimentManager(args[0],args[1]).execute();
-//			}
-//			
-//			System.exit(0);
-//		} catch (Exception e1) {
-//			e1.printStackTrace(new PrintStream("err1.txt"));
-//			try {
-//			  logger.info("Ocorreu um erro: " + e1.getMessage());
-//			  logger.info("Fim do Experimento: "+experiment);
-//			  ExperimentDAO dao = new ExcelExperimentDAO();
-//			  dao.insertExperiment(experiment);
-//			  dao.commit();
-//			} catch (Exception e2) {
-//				e2.printStackTrace(new PrintStream("err2.txt"));
-//			}
-//			System.exit(1);
-//		}
-//
-//	}
-	
 	private String getReplicaURLString(String replicaId) throws IOException{
 		
 		int sequence = Integer.parseInt(replicaId.substring(1));
@@ -112,9 +78,8 @@ public class ExperimentManager {
     
 	public void execute(WSSFInvocationListener... invocationListeners) throws Exception{
 		
-//		logger.info("Iniciando proxy na porta 8080...");
 		Log.d("experiment", "Iniciando proxy na porta 8080...");
-		jProxy p = new jProxy(8080,"",0,60, invocationListeners);
+		jProxy = new jProxy(8080,"",0,60, invocationListeners);
 		
 		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/log_proxy_"+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(currentTime)) +".txt");
 		File logDir = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/");
@@ -123,32 +88,30 @@ public class ExperimentManager {
 		}
 		if (file.createNewFile()) {
 			PrintStream ps = new PrintStream(file);
-			p.setDebug(1, ps);
+			jProxy.setDebug(1, ps);
 		}
-		p.start();
+		jProxy.start();
 		
-//		logger.info("Iniciando cliente...");
 		Log.d("experiment", "Iniciando cliente...");
 		SimpleHttpClient c = new SimpleHttpClient();
 		c.setProxy("localhost", "8080");
-		//WSClient c = new WSClient();
+
 		long startInvocation = System.currentTimeMillis();
 		Log.d("experiment", "Cliente requisitando " + urlString + " com a política " + serverSelectionPolicyName);
-//		logger.info("Cliente requisitando " + urlString + " com a política " + serverSelectionPolicyName);
 		String message = c.requisitar(urlString, serverSelectionPolicyName, clientTimeout);
-		//logger.info("Cliente invocando");
-		//long respLength = c.invoke();
 		long endInvocation = System.currentTimeMillis();
 		Integer elapsedTime = new Integer((int)(endInvocation - startInvocation));
 		experiment.setElapsedTime(elapsedTime);
 		experiment.setRequestStatus(message); //TODO implementar requestStatus
 		experiment.setDataReceived(c.getResponseLength());
 		Log.d("experiment", "Fim do Experimento: "+experiment);
-//		logger.info("Fim do Experimento: "+experiment);
 		ExperimentDAO dao = new ExcelExperimentDAO();
 		dao.insertExperiment(experiment);
 		dao.commit();
 		
 	}
 	
+	public jProxy getjProxy() {
+		return jProxy;
+	}
 }

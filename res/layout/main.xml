@@ -10,20 +10,41 @@
 	<Spinner android:layout_height="wrap_content" android:id="@+id/comboPolicys"
 		android:layout_width="match_parent"></Spinner>
 		
-	<LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout1"
-		 android:layout_height="wrap_content" android:weightSum="1">
-		<TextView android:textAppearance="?android:attr/textAppearanceMedium" 
-			android:id="@+id/textView1" android:layout_height="wrap_content" 
-			android:text="Calls to wait:" android:layout_width="wrap_content"></TextView>
-		<android.widget.NumberPicker android:layout_width="wrap_content" 
-			android:id="@+id/numberPicker1" android:layout_height="wrap_content"></android.widget.NumberPicker>
-	</LinearLayout>
-		
-	
 	<EditText android:layout_height="wrap_content" android:id="@+id/clientTimeout"
 		android:layout_width="match_parent" android:text="60">
 		<requestFocus></requestFocus>
 	</EditText>
+	
+	<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" 
+		android:id="@+id/tableLayout1">
+		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"  
+			android:layout_height="wrap_content">
+	
+			<TextView android:textAppearance="?android:attr/textAppearanceMedium"
+			android:id="@+id/textView1" android:layout_height="wrap_content" 
+			android:text="Calls to wait" android:layout_width="wrap_content"></TextView>
+		
+			<TextView android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_marginLeft="20px" 
+				android:id="@+id/textView2" android:layout_height="wrap_content" 
+				android:text="Fator" android:layout_width="wrap_content"></TextView>
+	
+
+		</TableRow>
+		<TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			
+			<EditText android:layout_height="wrap_content" android:id="@+id/calls"
+				android:layout_width="match_parent" android:text="20">
+			</EditText>
+			
+			<EditText android:layout_height="wrap_content" android:id="@+id/fator"
+				android:layout_marginLeft="20px"
+				android:layout_width="match_parent" android:text="1.5">
+			</EditText>
+			
+		</TableRow>
+	</TableLayout>
 	
 	<CheckBox android:text="Exibir progresso" android:id="@+id/checkProgresso" 
 		android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>

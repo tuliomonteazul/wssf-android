@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import br.unifor.wssf.core.HttpUtils;
-import br.unifor.wssf.core.WSSFGraphicMonitor;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
@@ -58,16 +57,17 @@ public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocati
 		URL url = HttpUtils.getURL(request);
 		List<URL> replicaList = getReplicaList(url);
 		WSSFProxy proxy = getProxy();
-		WSSFGraphicMonitor monitor = new WSSFGraphicMonitor("BoxPlotPolicy ["+numberOfCallsToWait+","+fator+"]");
 		
 		if (replicaFailList.size() < replicaList.size()){
 			
 			dataReceivedTimes = new HashMap<WSSFInvocationThread, Integer>(replicaList.size());
 			
+			int count = 0;
 			for (URL u : replicaList){
 				//TODO: n�o criar o WSSFInvocationThread contido na replicaFailList
 				byte[] newRequest = HttpUtils.replaceURL(url,u,request);
 				WSSFInvocationThread invocationThread = proxy.createWSSFInvocationThread(newRequest);
+				invocationThread.setReplicaID(count++);
 //				monitor.addWSSFInvocationThread(invocationThread);
 				dataReceivedTimes.put(invocationThread, 0);
 				invocationList.add(invocationThread); 

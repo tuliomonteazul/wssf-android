@@ -21,6 +21,7 @@ import br.unifor.wssf.view.widget.ReplicaProgressBar;
 public class ProgressActivity extends Activity {
 	
 	private List<ReplicaProgressBar> listProgressBar = new ArrayList<ReplicaProgressBar>();
+	private ExperimentManager experimentManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class ProgressActivity extends Activity {
 			public void run() {
 		
 				try {
-					new ExperimentManager(replica, policy, clientTimeout).execute(progressController);
-		//			new ExperimentManager("R1", "FC", 180).execute();
+					experimentManager = new ExperimentManager(replica, policy, clientTimeout);
+					experimentManager.execute(progressController);
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -87,6 +88,17 @@ public class ProgressActivity extends Activity {
 			}
 		}.start();
 		
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		
+		if (experimentManager != null) {
+			experimentManager.getjProxy().setCanRun(false);
+			experimentManager.getjProxy().closeSocket();
+		}
+		finish();
 	}
 
 	public ProgressBar getProgressBar(int id) {

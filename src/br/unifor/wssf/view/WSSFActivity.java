@@ -25,6 +25,7 @@ import br.unifor.wssf.proxy.experiment.ExperimentManager;
 public class WSSFActivity extends Activity {
 	
 	private ArrayList<String> listReplicas;
+	private ExperimentManager experimentManager;
 	
 	  /** Called when the activity is first created. */
     @Override
@@ -63,7 +64,6 @@ public class WSSFActivity extends Activity {
 		
 		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listReplicas);
-//		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		comboReplicas.setAdapter(adapter);
 	}
 
@@ -88,7 +88,6 @@ public class WSSFActivity extends Activity {
 		
 		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listPolicys);
-//		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		comboPolicys.setAdapter(adapter);
 	}
 
@@ -105,22 +104,38 @@ public class WSSFActivity extends Activity {
 
 	protected void doExperiment() {
 
-		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
-		final String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
-		
-		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
-		final String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
-		
-		final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
-		final String clientTimeout = editTimeout.getText().toString();
+		if (experimentManager != null) {
+			experimentManager.getjProxy().setCanRun(false);
+			experimentManager.getjProxy().closeSocket();
+		}
 		
 		new Thread() {
 			@Override
 			public void run() {
-		
+				
+				final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
+				final String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
+				
+				final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
+				String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
+				
+				final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
+				final String clientTimeout = editTimeout.getText().toString();
+				
+				final EditText editCalls = (EditText) findViewById(R.id.calls);
+				final EditText editFator = (EditText) findViewById(R.id.fator);
+				final String calls = editCalls.getText().toString();
+				final String fator = editFator.getText().toString();
+				if (policy.equalsIgnoreCase("BP") && calls != null
+						&& !"".equals(calls) && fator != null
+						&& !"".equals(fator)) {
+					policy += "["+calls+","+fator+"]";
+				}
+				
+				
 				try {
-					new ExperimentManager(replica, policy, Integer.parseInt(clientTimeout)).execute();
-		//			new ExperimentManager("R1", "FC", 180).execute();
+					experimentManager = new ExperimentManager(replica, policy,  Integer.parseInt(clientTimeout));
+					experimentManager.execute();
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -151,6 +166,16 @@ public class WSSFActivity extends Activity {
 		final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
 		String clientTimeout = editTimeout.getText().toString();
 		
+		final EditText editCalls = (EditText) findViewById(R.id.calls);
+		final EditText editFator = (EditText) findViewById(R.id.fator);
+		final String calls = editCalls.getText().toString();
+		final String fator = editFator.getText().toString();
+		if (policy.equalsIgnoreCase("BP") && calls != null
+				&& !"".equals(calls) && fator != null
+				&& !"".equals(fator)) {
+			policy += "["+calls+","+fator+"]";
+		}
+		
 		Bundle params = new Bundle();
 		params.putStringArrayList("listReplicas", listReplicas);
 		params.putString("replica", replica);
@@ -160,4 +185,5 @@ public class WSSFActivity extends Activity {
 		
 		startActivity(intent);
 	}
+	
 }
