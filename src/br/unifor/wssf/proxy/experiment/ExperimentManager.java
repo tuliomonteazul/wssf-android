@@ -92,6 +92,9 @@ public class ExperimentManager {
 		}
 		jProxy.start();
 		
+		// TODO este sleep corrige o problema da nao funcionar o proxy. alterar para uma maneira mais elegante
+		Thread.sleep(1000);
+		
 		Log.d("experiment", "Iniciando cliente...");
 		SimpleHttpClient c = new SimpleHttpClient();
 		c.setProxy("localhost", "8080");
