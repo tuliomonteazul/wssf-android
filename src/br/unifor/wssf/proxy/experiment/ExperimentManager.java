@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import android.os.Environment;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
@@ -81,19 +82,22 @@ public class ExperimentManager {
 		Log.d("experiment", "Iniciando proxy na porta 8080...");
 		jProxy = new jProxy(8080,"",0,60, invocationListeners);
 		
-		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/log_proxy_"+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(currentTime)) +".txt");
-		File logDir = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/");
-		if (!logDir.isDirectory()) {
-			logDir.mkdir();
-		}
-		if (file.createNewFile()) {
-			PrintStream ps = new PrintStream(file);
-			jProxy.setDebug(1, ps);
-		}
+//		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/log_proxy_"+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(currentTime)) +".txt");
+//		File logDir = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/");
+//		if (!logDir.isDirectory()) {
+//			logDir.mkdir();
+//		}
+//		if (file.createNewFile()) {
+//			PrintStream ps = new PrintStream(file);
+//		}
+		jProxy.setDebug(1, null);
+		Log.d("thread", "starting... isRunning: "+jProxy.isRunning() +" - isInterrupted: "+jProxy.isInterrupted() + " - isDaemon: "+jProxy.isDaemon() + " - isAlive: "+jProxy.isAlive());
 		jProxy.start();
+		Log.d("thread", "started! isRunning: "+jProxy.isRunning() +" - isInterrupted: "+jProxy.isInterrupted() + " - isDaemon: "+jProxy.isDaemon() + " - isAlive: "+jProxy.isAlive());
 		
 		// TODO este sleep corrige o problema da nao funcionar o proxy. alterar para uma maneira mais elegante
 		Thread.sleep(1000);
+		Log.d("thread", "waked! isRunning: "+jProxy.isRunning() +" - isInterrupted: "+jProxy.isInterrupted() + " - isDaemon: "+jProxy.isDaemon() + " - isAlive: "+jProxy.isAlive());
 		
 		Log.d("experiment", "Iniciando cliente...");
 		SimpleHttpClient c = new SimpleHttpClient();
