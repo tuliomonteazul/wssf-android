@@ -204,6 +204,7 @@ public class jProxy extends Thread {
 		try {
 			// close the open server socket
 			server.close();
+			
 			// send it a message to make it stop waiting immediately
 			// (not really necessary)
 			/*
@@ -229,7 +230,9 @@ public class jProxy extends Thread {
 				Log.d("proxy", "Started jProxy on port " + thisPort);
 
 			while (canRun) {
+				Log.d("teste", "server.accept");
 				Socket client = server.accept();
+				Log.d("teste", "aceitou");
 				ProxyThread t = new ProxyThread(client, fwdServer, fwdPort, invocationListeners);
 //				t.setDebug(debugLevel, debugOut);
 				t.setTimeout(ptTimeout);

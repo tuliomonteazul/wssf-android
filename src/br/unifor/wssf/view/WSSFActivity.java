@@ -18,8 +18,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
-import br.unifor.wssf.proxy.experiment.ExcelExperimentDAO;
-import br.unifor.wssf.proxy.experiment.ExperimentDAO;
 import br.unifor.wssf.proxy.experiment.ExperimentManager;
 
 public class WSSFActivity extends Activity {
@@ -103,20 +101,6 @@ public class WSSFActivity extends Activity {
 	}
 
 	protected void doExperiment() {
-
-		if (experimentManager != null) {
-			experimentManager.getjProxy().setCanRun(false);
-			
-			// TODO alterar para wait/notify
-			while (experimentManager.getjProxy().isRunning()) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-//			experimentManager.getjProxy().closeSocket();
-		}
 		
 		new Thread() {
 			@Override
@@ -151,9 +135,9 @@ public class WSSFActivity extends Activity {
 					try {
 					  Log.e("testeProxy", "Ocorreu um erro: " + e1.getMessage());
 					  Log.e("testeProxy", "Fim do Experimento: "+ExperimentManager.experiment);
-					  ExperimentDAO dao = new ExcelExperimentDAO();
-					  dao.insertExperiment(ExperimentManager.experiment);
-					  dao.commit();
+//					  ExperimentDAO dao = new ExcelExperimentDAO();
+//					  dao.insertExperiment(ExperimentManager.experiment);
+//					  dao.commit();
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
@@ -193,6 +177,7 @@ public class WSSFActivity extends Activity {
 		intent.putExtras(params);
 		
 		startActivity(intent);
+		
 	}
 	
 }

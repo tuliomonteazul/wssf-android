@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.List;
 
+import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 
@@ -51,7 +52,9 @@ public class InvocationThread extends WSSFInvocationThread {
 		
 		try {
 			
+			Log.d("teste", "invocando");
 			server = new Socket(getHostName(), getHostPort());
+			Log.d("teste", "invocou");
 			setConnectionTime(System.currentTimeMillis());
 			//TODO: CHECAR A NECESSIDADE DE VERIFICAR SE O SERVER EST� NULL 
 			if (server != null) {

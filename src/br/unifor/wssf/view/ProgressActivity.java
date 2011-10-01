@@ -12,8 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.unifor.wssf.R;
-import br.unifor.wssf.proxy.experiment.ExcelExperimentDAO;
-import br.unifor.wssf.proxy.experiment.ExperimentDAO;
 import br.unifor.wssf.proxy.experiment.ExperimentManager;
 import br.unifor.wssf.view.controller.ProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
@@ -78,9 +76,9 @@ public class ProgressActivity extends Activity {
 					try {
 					  Log.e("testeProxy", "Ocorreu um erro: " + e1.getMessage());
 					  Log.e("testeProxy", "Fim do Experimento: "+ExperimentManager.experiment);
-					  ExperimentDAO dao = new ExcelExperimentDAO();
-					  dao.insertExperiment(ExperimentManager.experiment);
-					  dao.commit();
+//					  ExperimentDAO dao = new ExcelExperimentDAO();
+//					  dao.insertExperiment(ExperimentManager.experiment);
+//					  dao.commit();
 					} catch (Exception e2) {
 						e2.printStackTrace();
 					}
@@ -93,14 +91,14 @@ public class ProgressActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		
+
 		if (experimentManager != null) {
 			experimentManager.getjProxy().setCanRun(false);
 			experimentManager.getjProxy().closeSocket();
 		}
 		finish();
 	}
-
+	
 	public ProgressBar getProgressBar(int id) {
 		return listProgressBar.get(id);
 	}
