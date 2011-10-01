@@ -91,13 +91,10 @@ public class ExperimentManager {
 //			PrintStream ps = new PrintStream(file);
 //		}
 		jProxy.setDebug(1, null);
-		Log.d("thread", "starting... isRunning: "+jProxy.isRunning() +" - isInterrupted: "+jProxy.isInterrupted() + " - isDaemon: "+jProxy.isDaemon() + " - isAlive: "+jProxy.isAlive());
 		jProxy.start();
-		Log.d("thread", "started! isRunning: "+jProxy.isRunning() +" - isInterrupted: "+jProxy.isInterrupted() + " - isDaemon: "+jProxy.isDaemon() + " - isAlive: "+jProxy.isAlive());
 		
 		// TODO este sleep corrige o problema da nao funcionar o proxy. alterar para uma maneira mais elegante
 		Thread.sleep(1000);
-		Log.d("thread", "waked! isRunning: "+jProxy.isRunning() +" - isInterrupted: "+jProxy.isInterrupted() + " - isDaemon: "+jProxy.isDaemon() + " - isAlive: "+jProxy.isAlive());
 		
 		Log.d("experiment", "Iniciando cliente...");
 		SimpleHttpClient c = new SimpleHttpClient();
