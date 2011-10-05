@@ -22,6 +22,7 @@ public class ReplicaProgressBar extends ProgressBar {
 	public static final int CONECTED_COLOR = Color.rgb(24,116,205);
 	public static final int DATA_REC_COLOR = Color.rgb(0,205,0);
 	public static final int EXCEPTION_COLOR = Color.rgb(205,0,0);
+	public static final int CANCELED_COLOR = Color.rgb(192, 192, 192);
 	
 	public ReplicaProgressBar(Context context) {
 		super(context, null, android.R.attr.progressBarStyleHorizontal);
@@ -55,7 +56,7 @@ public class ReplicaProgressBar extends ProgressBar {
 	
 	public synchronized void setText(String text) {
 		this.text = text;
-		drawableStateChanged();
+		postInvalidate();
 	}
 
 	public void setTextColor(int color) {
@@ -65,7 +66,6 @@ public class ReplicaProgressBar extends ProgressBar {
 	
 	public void setColor(int color) {
 		pgDrawable.getPaint().setColor(color);
-		drawableStateChanged();
 	}
 	
 }

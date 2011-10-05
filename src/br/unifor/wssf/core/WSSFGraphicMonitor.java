@@ -119,6 +119,9 @@ public class WSSFGraphicMonitor implements WSSFInvocationListener{
 	public void serverExceptionOccurred(WSSFInvocationThread invocationThread,
 			Exception e) {}
 
+	public void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+		
+	}
 }
 
 

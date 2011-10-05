@@ -174,6 +174,9 @@ public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocati
 		
 	}
 	
+	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+		
+	}
 	
 }
 

@@ -17,7 +17,7 @@ public class ProgressController implements WSSFInvocationListener {
 	}
 
 	@Override
-	public void serverResponseReceived(final WSSFInvocationThread invocationThread,
+	public synchronized void serverResponseReceived(final WSSFInvocationThread invocationThread,
 			byte[] resp) {
 		Log.d("progress", "response "+ invocationThread.toString());
 		
@@ -27,15 +27,15 @@ public class ProgressController implements WSSFInvocationListener {
 		progressBar.setText("dados recebidos!");
 		progressBar.setProgress(100);
 		
-		try {
-			invocationThread.stopInvocation();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			invocationThread.stopInvocation();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
-	public void serverConnectionOpened(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionOpened(WSSFInvocationThread invocationThread) {
 		Log.d("progress", "connection "+invocationThread.toString());
 		
 		int replicaID = invocationThread.getReplicaID();
@@ -46,7 +46,7 @@ public class ProgressController implements WSSFInvocationListener {
 	}
 
 	@Override
-	public void serverDataReceived(WSSFInvocationThread invocationThread,
+	public synchronized void serverDataReceived(WSSFInvocationThread invocationThread,
 			int qtBytesReaded) {
 		Log.d("progress", "data " +invocationThread.toString());
 
@@ -64,7 +64,7 @@ public class ProgressController implements WSSFInvocationListener {
 	}
 
 	@Override
-	public void serverExceptionOccurred(WSSFInvocationThread invocationThread,
+	public synchronized void serverExceptionOccurred(WSSFInvocationThread invocationThread,
 			Exception e) {
 		Log.d("progress", "exception " +invocationThread.toString());
 		
@@ -73,6 +73,18 @@ public class ProgressController implements WSSFInvocationListener {
 		progressBar.setColor(ReplicaProgressBar.EXCEPTION_COLOR);
 		progressBar.setText("erro!");
 		progressBar.setProgress(100);
+	}
+	
+	@Override
+	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+		Log.d("progress", "canceled " +invocationThread.toString());
+		
+		int replicaID = invocationThread.getReplicaID();
+		ReplicaProgressBar progressBar = (ReplicaProgressBar) activity.getProgressBar(replicaID);
+		progressBar.setColor(ReplicaProgressBar.CANCELED_COLOR);
+		progressBar.setText("cancelada");
+//		progressBar.refreshDrawableState();
+		
 	}
 
 }
