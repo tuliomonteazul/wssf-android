@@ -15,6 +15,8 @@ public class Experiment {
 	private Integer firstConnectionTime = new Integer(0);
 	private Integer firstReadTime = new Integer(0);
 	
+	// TODO adicionar consumo de bateria
+	
 	//private StringBuffer details;
 
 	public Integer getFirstConnectionTime() {
