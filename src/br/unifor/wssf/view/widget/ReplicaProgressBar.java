@@ -41,6 +41,7 @@ public class ReplicaProgressBar extends ProgressBar {
 		text = START_TEXT;  
         textPaint = new Paint();  
         textPaint.setColor(Color.BLACK);  
+        textPaint.setTextSize(18);  
 	}
 	
 	@Override
