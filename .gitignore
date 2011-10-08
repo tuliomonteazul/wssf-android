@@ -10,3 +10,7 @@
 
 # generated GUI files
 *R.java
+
+#folders
+gen
+assets
