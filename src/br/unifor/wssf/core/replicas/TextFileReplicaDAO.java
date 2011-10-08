@@ -13,9 +13,8 @@ import android.os.Environment;
 
 public class TextFileReplicaDAO implements ReplicaDAO {
 
-//	public final static String REPLICA_FILE_PATH = "/Android/data/br.unifor.wssf/";
-//	public final static String REPLICA_FILE_NAME = "replicas.txt";
-	public final static String REPLICA_FILE_PATH = "/data/data/br.unifor.wssf/files";
+//	public final static String REPLICA_FILE_PATH = Environment.getExternalStorageDirectory()+"/Android/data/br.unifor.wssf/";
+	public final static String REPLICA_FILE_PATH = "/data/data/br.unifor.wssf/files/";
 	public final static String REPLICA_FILE_NAME = "replicas.txt";
 	
 	private List<String> replicaListString;
@@ -27,10 +26,8 @@ public class TextFileReplicaDAO implements ReplicaDAO {
 		replicaListString = new ArrayList<String>();
 
 		
-//		File file = new File(Environment.getExternalStorageDirectory()+REPLICA_FILE_PATH+REPLICA_FILE_NAME);
-//		BufferedReader in = new BufferedReader(new FileReader(file));
-		BufferedReader in = new BufferedReader(
-				new FileReader(new File(REPLICA_FILE_PATH, REPLICA_FILE_NAME)));
+		File file = new File(REPLICA_FILE_PATH+REPLICA_FILE_NAME);
+		BufferedReader in = new BufferedReader(new FileReader(file));
 		while (in.ready()) {
 			replicaListString.add(in.readLine());
 		}
