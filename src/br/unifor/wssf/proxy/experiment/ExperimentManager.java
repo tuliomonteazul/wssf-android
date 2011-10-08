@@ -1,14 +1,11 @@
 package br.unifor.wssf.proxy.experiment;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import android.os.Environment;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
@@ -94,6 +91,7 @@ public class ExperimentManager {
 		jProxy.start();
 		
 		// TODO este sleep corrige o problema da nao funcionar o proxy. alterar para uma maneira mais elegante
+		// socket que verifica se o socket subiu
 		Thread.sleep(1000);
 		
 		Log.d("experiment", "Iniciando cliente...");
