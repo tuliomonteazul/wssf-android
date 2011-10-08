@@ -1,14 +1,30 @@
 package br.unifor.wssf.proxy.experiment;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+
+import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
+
 public class ExcelExperimentDAO implements ExperimentDAO {
-//	private HSSFWorkbook workbook;
-//	public ExcelExperimentDAO() throws FileNotFoundException, IOException {
-//		POIFSFileSystem fs = new POIFSFileSystem( new FileInputStream( "./experiments.xls"));
-//		workbook = new HSSFWorkbook(fs);
-//	}
+	private HSSFWorkbook workbook;
+	public ExcelExperimentDAO() throws FileNotFoundException, IOException {
+		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/experiments.xls");
+		if (!file.isFile()) {
+			file.createNewFile();
+		}
+		POIFSFileSystem fs = new POIFSFileSystem( new FileInputStream(file));
+		workbook = new HSSFWorkbook(fs);
+	}
 	
     public List<Experiment> getAllExperiments() {
 		return null;
@@ -44,8 +60,8 @@ public class ExcelExperimentDAO implements ExperimentDAO {
 
 	public void commit() throws IOException {
 		
-//		FileOutputStream fs = new FileOutputStream("./experiments.xls");
-//        workbook.write(fs);
+		FileOutputStream fs = new FileOutputStream(TextFileReplicaDAO.REPLICA_FILE_PATH + "/experiments.xls");
+        workbook.write(fs);
 		
 	}
 	
@@ -58,30 +74,30 @@ public class ExcelExperimentDAO implements ExperimentDAO {
 	 */
 	private void insertExperimentOnSheet(Experiment e, String sheetName){
 		
-//		HSSFSheet s = workbook.getSheet(sheetName);
-//	    
-//		if (s == null) {
-//			s = workbook.cloneSheet(0);
-//			workbook.setSheetName(workbook.getSheetIndex(s.getSheetName()), sheetName);
-//		}
-//		
-//		int i = 0;
-//	      HSSFRow row = s.getRow(i);
-//	      while (row != null){
-//	    	  i++;
-//	    	  row = s.getRow(i);
-//	      }
-//	      row = s.createRow((short)i);
-//	      row.createCell(0).setCellValue(e.getId()==null?"-":e.getId());
-//	      row.createCell(1).setCellValue(e.getTime()==null?new Date(0):e.getTime());
-//	      row.createCell(2).setCellValue(e.getRequestedURL()==null?"-":e.getRequestedURL());
-//	      row.createCell(3).setCellValue(e.getPolicyName()==null?"-":e.getPolicyName());
-//	      row.createCell(4).setCellValue(e.getDataReceived()==null?0:e.getDataReceived());
-//	      row.createCell(5).setCellValue(e.getElapsedTime()==null?0:e.getElapsedTime());
-//	      row.createCell(6).setCellValue(e.getRequestStatus()==null?"-":e.getRequestStatus());
-//	      row.createCell(7).setCellValue(e.getSelectedServer()==null?"-":e.getSelectedServer());
-//	      row.createCell(8).setCellValue(e.getFirstConnectionTime()==null?0:e.getFirstConnectionTime());
-//	      row.createCell(9).setCellValue(e.getFirstReadTime()==null?0:e.getFirstReadTime());
+		HSSFSheet s = workbook.getSheet(sheetName);
+	    
+		if (s == null) {
+			s = workbook.cloneSheet(0);
+			workbook.setSheetName(workbook.getSheetIndex(s.getSheetName()), sheetName);
+		}
+		
+		int i = 0;
+	      HSSFRow row = s.getRow(i);
+	      while (row != null){
+	    	  i++;
+	    	  row = s.getRow(i);
+	      }
+	      row = s.createRow((short)i);
+	      row.createCell(0).setCellValue(e.getId()==null?"-":e.getId());
+	      row.createCell(1).setCellValue(e.getTime()==null?new Date(0):e.getTime());
+	      row.createCell(2).setCellValue(e.getRequestedURL()==null?"-":e.getRequestedURL());
+	      row.createCell(3).setCellValue(e.getPolicyName()==null?"-":e.getPolicyName());
+	      row.createCell(4).setCellValue(e.getDataReceived()==null?0:e.getDataReceived());
+	      row.createCell(5).setCellValue(e.getElapsedTime()==null?0:e.getElapsedTime());
+	      row.createCell(6).setCellValue(e.getRequestStatus()==null?"-":e.getRequestStatus());
+	      row.createCell(7).setCellValue(e.getSelectedServer()==null?"-":e.getSelectedServer());
+	      row.createCell(8).setCellValue(e.getFirstConnectionTime()==null?0:e.getFirstConnectionTime());
+	      row.createCell(9).setCellValue(e.getFirstReadTime()==null?0:e.getFirstReadTime());
 	}
 
 }
