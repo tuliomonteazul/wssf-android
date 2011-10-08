@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.unifor.wssf.R;
-import br.unifor.wssf.proxy.experiment.ExperimentManager;
+import br.unifor.wssf.experiment.ExperimentManager;
 import br.unifor.wssf.view.controller.ProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 

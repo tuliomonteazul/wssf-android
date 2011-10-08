@@ -1,4 +1,4 @@
-package br.unifor.wssf.proxy.experiment;
+package br.unifor.wssf.experiment;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 import br.unifor.wssf.core.WSSFProxy;
 import br.unifor.wssf.core.policy.ServerSelectionPolicy;
-import br.unifor.wssf.proxy.experiment.ExperimentManager;
+import br.unifor.wssf.experiment.ExperimentManager;
 
 public class NoPolicy extends ServerSelectionPolicy implements WSSFInvocationListener{
     

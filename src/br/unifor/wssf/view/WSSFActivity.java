@@ -18,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
-import br.unifor.wssf.proxy.experiment.ExperimentManager;
+import br.unifor.wssf.experiment.ExperimentManager;
 
 public class WSSFActivity extends Activity {
 	
