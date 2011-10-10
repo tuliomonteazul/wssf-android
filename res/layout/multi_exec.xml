@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#CCCCCC"
+    android:padding="10dip">
+	<Spinner android:id="@+id/comboFileExecs" android:drawSelectorOnTop="true"
+		android:layout_height="wrap_content" android:layout_width="match_parent"></Spinner>
+		
+	<TextView android:textAppearance="?android:attr/textAppearanceMedium"
+		android:id="@+id/lbDetalhes"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/comboFileExecs"
+		android:textColor="#444444"
+		android:text="Detalhes"></TextView>
+
+	
+	<EditText android:inputType="textMultiLine" android:id="@+id/contentDetalhes"
+		android:layout_width="match_parent"
+		android:layout_height="330dip"
+		android:gravity="top"
+		android:enabled="false"
+		android:layout_below="@id/lbDetalhes">
+	</EditText>
+	
+	<Button android:text="Iniciar Experimentos" android:id="@+id/btExperimento"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"></Button>
+	
+</RelativeLayout>
+

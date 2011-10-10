@@ -1,4 +1,4 @@
-package br.unifor.wssf.view;
+package br.unifor.wssf.view.execution.single;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.experiment.ExperimentManager;
-import br.unifor.wssf.view.controller.ProgressController;
+import br.unifor.wssf.view.execution.single.controller.SingleExecProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
-public class ProgressActivity extends Activity {
+public class SingleExecProgressActivity extends Activity {
 	
 	private List<ReplicaProgressBar> listProgressBar = new ArrayList<ReplicaProgressBar>();
 	private ExperimentManager experimentManager;
@@ -61,7 +61,7 @@ public class ProgressActivity extends Activity {
 		final String replica = params.getString("replica");
 		final String policy = params.getString("policy");
 		final Integer clientTimeout = params.getInt("clientTimeout");
-		final ProgressController progressController = new ProgressController(this);
+		final SingleExecProgressController singleExecProgressController = new SingleExecProgressController(this);
 		
 		new Thread() {
 			@Override
@@ -69,7 +69,7 @@ public class ProgressActivity extends Activity {
 		
 				try {
 					experimentManager = new ExperimentManager(replica, policy, clientTimeout);
-					experimentManager.execute(progressController);
+					experimentManager.execute(singleExecProgressController);
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();

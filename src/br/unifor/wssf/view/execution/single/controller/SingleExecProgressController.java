@@ -1,18 +1,18 @@
-package br.unifor.wssf.view.controller;
+package br.unifor.wssf.view.execution.single.controller;
 
 import java.io.IOException;
 
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
-import br.unifor.wssf.view.ProgressActivity;
+import br.unifor.wssf.view.execution.single.SingleExecProgressActivity;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
-public class ProgressController implements WSSFInvocationListener {
+public class SingleExecProgressController implements WSSFInvocationListener {
 	
-	private ProgressActivity activity;
+	private SingleExecProgressActivity activity;
 	
-	public ProgressController(final ProgressActivity activity) {
+	public SingleExecProgressController(final SingleExecProgressActivity activity) {
 		this.activity =  activity;
 	}
 

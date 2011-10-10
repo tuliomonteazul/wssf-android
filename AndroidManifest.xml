@@ -8,13 +8,14 @@
     <uses-permission android:name="android.permission.INTERNET" /> 
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
-        <activity android:name=".view.WSSFActivity"
-                  android:label="@string/app_name">
+		<activity android:name=".view.execution.ExecutionChooseActivity" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-		<activity android:name=".view.ProgressActivity"></activity>
+		</activity>
+        <activity android:name=".view.execution.single.SingleExecConfigActivity"></activity>
+		<activity android:name=".view.execution.single.SingleExecProgressActivity"></activity>
+		<activity android:name=".view.execution.multiple.MultiExecActivity"></activity>
     </application>
 </manifest>

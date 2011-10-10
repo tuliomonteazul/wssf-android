@@ -1,4 +1,4 @@
-package br.unifor.wssf.view;
+package br.unifor.wssf.view.execution.single;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.ExperimentManager;
 
-public class WSSFActivity extends Activity {
+public class SingleExecConfigActivity extends Activity {
 	
 	private ArrayList<String> listReplicas;
 	private ExperimentManager experimentManager;
@@ -148,7 +148,7 @@ public class WSSFActivity extends Activity {
 	
 
 	private void callProgressActivity() {
-		Intent intent = new Intent(this, ProgressActivity.class);
+		Intent intent = new Intent(this, SingleExecProgressActivity.class);
 		
 		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
 		String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
