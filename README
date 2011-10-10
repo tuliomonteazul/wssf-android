@@ -1,0 +1,6 @@
+WSSF (Web Service Selection Framework)
+
+Projeto criado no trabalho de conclusão de curso para graduação em Ciência da Computação.
+Consiste em adaptar o framework WSSF para a plataforma Android com o objetivo de realizar experimentos e testar a execução das políticas de seleção de servidores.
+
+Para executá-lo, é necessário que o dispositivo (emulador ou real) possua o arquivo replicas.txt no diretório files dentro da pasta pertencente a aplicação. A classe TextFileReplicaDAO possui a constante com o caminho do arquivo para memória interna ou cartão sd.
