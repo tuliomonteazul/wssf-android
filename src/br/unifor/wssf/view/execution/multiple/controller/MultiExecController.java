@@ -2,8 +2,16 @@ package br.unifor.wssf.view.execution.multiple.controller;
 
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
+import br.unifor.wssf.view.execution.multiple.MultiExecActivity;
 
-public class MultiExecProgressController implements WSSFInvocationListener {
+public class MultiExecController implements WSSFInvocationListener {
+
+	private MultiExecActivity multiExecActivity;
+	
+	public MultiExecController(MultiExecActivity multiExecActivity) {
+		super();
+		this.multiExecActivity = multiExecActivity;
+	}
 
 	@Override
 	public void serverResponseReceived(WSSFInvocationThread invocationThread,
