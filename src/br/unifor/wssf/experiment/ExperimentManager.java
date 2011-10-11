@@ -1,6 +1,8 @@
 package br.unifor.wssf.experiment;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -90,9 +92,7 @@ public class ExperimentManager {
 		jProxy.setDebug(1, null);
 		jProxy.start();
 		
-		// TODO este sleep corrige o problema da nao funcionar o proxy. alterar para uma maneira mais elegante
-		// socket que verifica se o socket subiu
-		Thread.sleep(1000);
+		waitForProxyStart();
 		
 		Log.d("experiment", "Iniciando cliente...");
 		SimpleHttpClient c = new SimpleHttpClient();
@@ -113,6 +113,19 @@ public class ExperimentManager {
 		
 	}
 	
+	private void waitForProxyStart() throws InterruptedException {
+		boolean conected = false;
+		while (!conected) {
+			try {
+				Socket socket = new Socket("localhost", 8080);
+				conected = socket.isConnected();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Thread.sleep(500);
+			}
+		}
+	}
+
 	public jProxy getjProxy() {
 		return jProxy;
 	}
