@@ -214,38 +214,37 @@ public class jProxy extends Thread {
 		} catch (Exception e) {
 			if (debugLevel > 0)
 				Log.e("proxy", e.getMessage(), e);
-//				debugOut.println(e);
 		}
 
 		server = null;
 	}
 
 	public void run() {
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread começou");
 		try {
 			// create a server socket, and loop forever listening for
 			// client connections
 			server = new ServerSocket(thisPort);
 			if (debugLevel > 0)
-//				debugOut.println("Started jProxy on port " + thisPort);
 				Log.d("proxy", "Started jProxy on port " + thisPort);
 
+			
 			while (canRun) {
 				Log.d("teste", "server.accept");
 				Socket client = server.accept();
 				Log.d("teste", "aceitou");
 				ProxyThread t = new ProxyThread(client, fwdServer, fwdPort, invocationListeners);
-//				t.setDebug(debugLevel, debugOut);
 				t.setTimeout(ptTimeout);
 				t.start();
 			}
 		} catch (Exception e) {
 			if (debugLevel > 0)
-//				debugOut.println("jProxy Thread error: " + e);
 				Log.e("proxy", "jProxy Thread error: " + e.getMessage(), e);
 		}
 		
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu1");
 		closeSocket();
-		
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu2");
 	}
 
 	public void setCanRun(boolean canRun) {
@@ -298,6 +297,7 @@ class ProxyThread extends Thread implements WSSFProxy {
 	}
 
 	public void run() {
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread começou");
 		try {
 			long startTime = System.currentTimeMillis();
 
@@ -435,7 +435,7 @@ class ProxyThread extends Thread implements WSSFProxy {
 			// if the user wants debug info, send them debug info; however,
 			// keep in mind that because we're using threads, the output won't
 			// necessarily be synchronous
-			if (debugLevel > 0) {
+//			if (debugLevel > 0) {
 				long endTime = System.currentTimeMillis();
 				Log.d("proxy", "Request from "
 						+ pSocket.getInetAddress().getHostAddress()
@@ -445,12 +445,10 @@ class ProxyThread extends Thread implements WSSFProxy {
 						+ " bytes returned, "
 						+ Long.toString(endTime - startTime) + " ms elapsed)");
 //				debugOut.flush();
-			}
-			if (debugLevel > 1) {
-				Log.d("proxy", "REQUEST:\n" + (new String(request)));
-				Log.d("proxy", "RESPONSE:\n" + (new String(response)));
+//			}
+//			if (debugLevel > 1) {
 //				debugOut.flush();
-			}
+//			}
 
 			// close all the client streams so we can listen again
 			clientOut.close();
@@ -463,7 +461,8 @@ class ProxyThread extends Thread implements WSSFProxy {
 				Log.e("proxy", "Error in ProxyThread: " + e.getMessage(), e);
 			// e.printStackTrace();
 		}
-
+		
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu");
 	}
 
 	private byte[] getHTTPData(InputStream in, boolean waitForDisconnect) {

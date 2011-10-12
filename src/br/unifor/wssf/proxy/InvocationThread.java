@@ -33,7 +33,7 @@ public class InvocationThread extends WSSFInvocationThread {
 	private int socketTimeout = DEFAULT_TIMEOUT;
 	private int debugLevel = 0;
 	private PrintStream debugOut = System.out;
-
+	BufferedInputStream serverIn;
 
 	public void setTimeout(int timeout) {
 		// assume that the user will pass the timeout value
@@ -47,7 +47,7 @@ public class InvocationThread extends WSSFInvocationThread {
 	}
 
 	public void run() {
-		
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread começou");
 		List<WSSFInvocationListener> list = getInvocationListenerList();
 		
 		try {
@@ -67,17 +67,19 @@ public class InvocationThread extends WSSFInvocationThread {
 				for (WSSFInvocationListener listener : list) {
 					listener.serverConnectionOpened(this);
 				}					
-				
+
 				server.setSoTimeout(socketTimeout);
-				BufferedInputStream serverIn = new BufferedInputStream(server
+				 serverIn = new BufferedInputStream(server
 						.getInputStream());
+				
+				
 				BufferedOutputStream serverOut = new BufferedOutputStream(
 						server.getOutputStream());
 
 				// send the request out
 				serverOut.write(getRequest(), 0, Array.getLength(getRequest()));
 				serverOut.flush();
-
+				
 				// and get the response; if we're not at a debug level that
 				// requires us to return the data in the response, just stream
 				// it back to the client to save ourselves from having to
@@ -114,6 +116,7 @@ public class InvocationThread extends WSSFInvocationThread {
 					debugOut.println("Error getting HTTP data: " + e);				
 			}
 		}
+		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu");
 	}
 
 	private byte[] getHTTPData(InputStream in, boolean waitForDisconnect) {
@@ -302,6 +305,7 @@ public class InvocationThread extends WSSFInvocationThread {
 	@Override
 	public void closeConnection() throws IOException {
 		if (server != null && !server.isClosed()){
+			serverIn.close();
 			server.close();
 		}	
 	}
