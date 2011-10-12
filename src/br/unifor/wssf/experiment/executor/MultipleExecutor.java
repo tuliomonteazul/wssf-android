@@ -2,7 +2,7 @@ package br.unifor.wssf.experiment.executor;
 
 import java.util.List;
 
-import br.unifor.wssf.experiment.ExperimentManager;
+import br.unifor.wssf.experiment.manager.ExperimentManager;
 import br.unifor.wssf.view.execution.multiple.MultiExecActivity;
 import br.unifor.wssf.view.execution.multiple.controller.MultiExecController;
 

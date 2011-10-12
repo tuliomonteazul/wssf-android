@@ -1,8 +1,7 @@
-package br.unifor.wssf.experiment;
+package br.unifor.wssf.experiment.manager;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +10,9 @@ import java.util.logging.Logger;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
+import br.unifor.wssf.experiment.dao.ExcelExperimentDAO;
+import br.unifor.wssf.experiment.dao.ExperimentDAO;
+import br.unifor.wssf.experiment.model.Experiment;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
 
@@ -110,6 +112,7 @@ public class ExperimentManager {
 		ExperimentDAO dao = new ExcelExperimentDAO();
 		dao.insertExperiment(experiment);
 		dao.commit();
+		
 		
 	}
 	

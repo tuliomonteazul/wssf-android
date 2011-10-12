@@ -1,4 +1,4 @@
-package br.unifor.wssf.experiment;
+package br.unifor.wssf.experiment.dao;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
+import br.unifor.wssf.experiment.model.Experiment;
 
 public class ExcelExperimentDAO implements ExperimentDAO {
 	private HSSFWorkbook workbook;
