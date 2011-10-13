@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
-import br.unifor.wssf.experiment.dao.ExcelExperimentDAO;
 import br.unifor.wssf.experiment.dao.ExperimentDAO;
+import br.unifor.wssf.experiment.dao.TxtExperimentDAO;
 import br.unifor.wssf.experiment.model.Experiment;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
@@ -109,7 +109,7 @@ public class ExperimentManager {
 		experiment.setRequestStatus(message); //TODO implementar requestStatus
 		experiment.setDataReceived(c.getResponseLength());
 		Log.d("experiment", "Fim do Experimento: "+experiment);
-		ExperimentDAO dao = new ExcelExperimentDAO();
+		ExperimentDAO dao = new TxtExperimentDAO();
 		dao.insertExperiment(experiment);
 		dao.commit();
 		
