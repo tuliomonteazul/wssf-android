@@ -93,8 +93,7 @@ public class SingleExecProgressActivity extends Activity {
 		super.onBackPressed();
 
 		if (experimentManager != null) {
-			experimentManager.getjProxy().setCanRun(false);
-			experimentManager.getjProxy().closeSocket();
+			experimentManager.getjProxy().sendCloseMessage();
 		}
 		finish();
 	}
