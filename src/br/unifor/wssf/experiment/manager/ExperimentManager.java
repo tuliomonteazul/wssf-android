@@ -113,9 +113,17 @@ public class ExperimentManager {
 		dao.insertExperiment(experiment);
 		dao.commit();
 		
+		jProxy.sendCloseMessage();
 		
+		waitForProxyClose();
 	}
 	
+	private void waitForProxyClose() throws InterruptedException {
+		while (jProxy.isRunning()) {
+			Thread.sleep(500);
+		}
+	}
+
 	private void waitForProxyStart() throws InterruptedException {
 		boolean conected = false;
 		while (!conected) {
@@ -123,7 +131,7 @@ public class ExperimentManager {
 				Socket socket = new Socket("localhost", 8080);
 				conected = socket.isConnected();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Log.d("experiment", "Proxy ainda não iniciado, tentanto novamente em alguns segundos");
 				Thread.sleep(500);
 			}
 		}

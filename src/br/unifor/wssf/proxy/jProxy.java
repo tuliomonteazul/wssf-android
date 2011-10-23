@@ -195,6 +195,22 @@ public class jProxy extends Thread {
 		else
 			return true;
 	}
+	
+	public void sendCloseMessage() {
+		try {
+			// tira o server socket do modo de espera para poder fechá-lo
+			canRun = false;
+			Socket s = new Socket("localhost", thisPort);
+			OutputStream os = s.getOutputStream();
+			os.write((byte)0);
+			os.close();
+			s.close();
+		
+		} catch (Exception e) {
+			if (debugLevel > 0)
+				Log.e("proxy", e.getMessage(), e);
+		}
+	}
 
 	/*
 	 * closeSocket will close the open ServerSocket; use this to halt a running
@@ -205,12 +221,7 @@ public class jProxy extends Thread {
 			// close the open server socket
 			server.close();
 			
-			// send it a message to make it stop waiting immediately
-			// (not really necessary)
-			/*
-			 * Socket s = new Socket("localhost", thisPort); OutputStream os =
-			 * s.getOutputStream(); os.write((byte)0); os.close(); s.close();
-			 */
+			InvocationThreadFactory.getInstance().closeAll();
 		} catch (Exception e) {
 			if (debugLevel > 0)
 				Log.e("proxy", e.getMessage(), e);
@@ -637,7 +648,7 @@ class ProxyThread extends Thread implements WSSFProxy {
 
 	public WSSFInvocationThread createWSSFInvocationThread(byte[] request)
 			throws MalformedURLException {
-		InvocationThread invocationThread = new InvocationThread(request);
+		InvocationThread invocationThread = InvocationThreadFactory.getInstance().createInvocationThread(request); 
 		invocationThread.setTimeout(socketTimeout);
 		invocationThread.setDebug(debugLevel, debugOut);
 		return invocationThread;

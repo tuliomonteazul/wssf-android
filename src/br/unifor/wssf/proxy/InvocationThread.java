@@ -69,8 +69,7 @@ public class InvocationThread extends WSSFInvocationThread {
 				}					
 
 				server.setSoTimeout(socketTimeout);
-				 serverIn = new BufferedInputStream(server
-						.getInputStream());
+				serverIn = new BufferedInputStream(server.getInputStream());
 				
 				
 				BufferedOutputStream serverOut = new BufferedOutputStream(
@@ -116,7 +115,7 @@ public class InvocationThread extends WSSFInvocationThread {
 					debugOut.println("Error getting HTTP data: " + e);				
 			}
 		}
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu");
+		Log.d("threads", Thread.currentThread().getId() + " Total: " + Thread.activeCount() + " - " + Thread.currentThread().getClass().toString() +" proxythread morreu");
 	}
 
 	private byte[] getHTTPData(InputStream in, boolean waitForDisconnect) {
@@ -305,7 +304,12 @@ public class InvocationThread extends WSSFInvocationThread {
 	@Override
 	public void closeConnection() throws IOException {
 		if (server != null && !server.isClosed()){
-			serverIn.close();
+//			serverIn.close();
+			try {
+				server.shutdownInput();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			server.close();
 		}	
 	}
