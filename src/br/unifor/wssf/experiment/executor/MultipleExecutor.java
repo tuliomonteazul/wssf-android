@@ -33,10 +33,12 @@ public class MultipleExecutor extends Thread {
 			executionLog.log("Total: "+ totalExecucoes);
 			executionLog.log("----------------------");
 			
-			long tempoInicio = System.currentTimeMillis();
+			long tempoTotalInicio = System.currentTimeMillis();
 			
 			int count = 1;
 			for (Execution execution : executions) {
+				long tempoExecInicio = System.currentTimeMillis();
+				
 				executionLog.log("Execução "+ count + "/" + totalExecucoes);
 				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
 				executionLog.log("Política: "+ execution.getPolicyId());
@@ -44,17 +46,20 @@ public class MultipleExecutor extends Thread {
 				ExperimentManager experimentManager = new ExperimentManager(execution.getReplicaToInvoke(), execution.getPolicyId());
 				experimentManager.execute(multiExecController);
 				
-				executionLog.log("Fim da execução "+ count);
+				long tempoExecFim = System.currentTimeMillis();
+				float tempoExec = (float) (tempoExecFim - tempoExecInicio) / 1000;
+				
+				executionLog.log("Fim da execução "+ count + " ("+tempoExec + " segundos)");
 				executionLog.log("----------------------");
 				
 				count++;
 			}
 			
-			long tempoFim = System.currentTimeMillis();
-			float tempoTotal = (float) (tempoFim - tempoInicio) * 1000;
+			long tempoTotalFim = System.currentTimeMillis();
+			float tempoTotal = (float) (tempoTotalFim - tempoTotalInicio) / 1000;
 			
 			executionLog.log("Fim das execuções");
-			executionLog.log("Tempo total consumido: "+ tempoTotal);
+			executionLog.log("Tempo total consumido: "+ tempoTotal + " segundos");
 		} catch (Exception e) {
 			executionLog.log("Não foi possível completar as execuções.");
 			executionLog.log(e.getMessage());
