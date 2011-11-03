@@ -3,25 +3,32 @@ package br.unifor.wssf.view.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import br.unifor.wssf.experiment.executor.ExecutionLog;
 
-public class LogEditText extends EditText implements ExecutionLog {
+public class LogTextView extends TextView implements ExecutionLog {
 
 	private Handler handler;
+	private ScrollView scrollView;
 	
-	public LogEditText(Context context) {
+	public LogTextView(Context context) {
 		super(context);
-		handler = new Handler();
+		init();
 	}
 	
-	public LogEditText(Context context, AttributeSet attrs) {
+	public LogTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		handler = new Handler();
+		init();
 	}
 	
-	public LogEditText(Context context, AttributeSet attrs, int defStyle) {
+	public LogTextView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		init();
+	}
+
+	private void init() {
 		handler = new Handler();
 	}
 	
@@ -32,11 +39,21 @@ public class LogEditText extends EditText implements ExecutionLog {
 			@Override
 			public void run() {
 				append(text+"\n");
+				
+				post(new Runnable() {
+			        public void run() {
+			            scrollView.fullScroll(View.FOCUS_DOWN);
+			        }
+			    });
 			}
 		});
 	}
 	
 	public void clearLog() {
-		this.setText("");
+		setText("");
+	}
+
+	public void setScrollView(ScrollView scrollView) {
+		this.scrollView = scrollView;
 	}
 }
