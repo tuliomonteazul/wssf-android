@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.List;
 
-import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
 
@@ -47,14 +46,11 @@ public class InvocationThread extends WSSFInvocationThread {
 	}
 
 	public void run() {
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread começou");
 		List<WSSFInvocationListener> list = getInvocationListenerList();
 		
 		try {
 			
-			Log.d("teste", "invocando");
 			server = new Socket(getHostName(), getHostPort());
-			Log.d("teste", "invocou");
 			setConnectionTime(System.currentTimeMillis());
 			//TODO: CHECAR A NECESSIDADE DE VERIFICAR SE O SERVER EST� NULL 
 			if (server != null) {
@@ -115,7 +111,6 @@ public class InvocationThread extends WSSFInvocationThread {
 					debugOut.println("Error getting HTTP data: " + e);				
 			}
 		}
-		Log.d("threads", Thread.currentThread().getId() + " Total: " + Thread.activeCount() + " - " + Thread.currentThread().getClass().toString() +" proxythread morreu");
 	}
 
 	private byte[] getHTTPData(InputStream in, boolean waitForDisconnect) {
