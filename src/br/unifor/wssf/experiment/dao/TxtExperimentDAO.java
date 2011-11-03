@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import android.content.Context;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.model.Experiment;
 
@@ -17,12 +18,14 @@ public class TxtExperimentDAO implements ExperimentDAO {
 	private BufferedWriter writer;
 	
 	
-	public TxtExperimentDAO() throws FileNotFoundException, IOException {
-		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/experiments.txt");
+	public TxtExperimentDAO(Context context) throws FileNotFoundException, IOException {
+		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "experiments.txt");
 		boolean fileAlreadyExist = file.isFile();
 		if (!fileAlreadyExist) {
 			file.createNewFile();
 		}
+//		FileOutputStream output = context.openFileOutput("experiments.txt", Context.MODE_WORLD_READABLE);
+		
 		
 		writer = new BufferedWriter(new FileWriter(file, true));
 		
@@ -52,6 +55,8 @@ public class TxtExperimentDAO implements ExperimentDAO {
     	buffer.append("FirstConnectionTime");
     	buffer.append(SEPARATOR);
     	buffer.append("FirstReadTime");
+    	buffer.append(SEPARATOR);
+    	buffer.append("batteryUsage");
     	
     	write(buffer.toString());
 	}
@@ -86,12 +91,15 @@ public class TxtExperimentDAO implements ExperimentDAO {
 		buffer.append(e.getFirstConnectionTime() == null ? 0 : e.getFirstConnectionTime());
 		buffer.append(SEPARATOR);
 		buffer.append(e.getFirstReadTime() == null ? 0 : e.getFirstReadTime());
+		buffer.append(SEPARATOR);
+		buffer.append(e.getBatteryUsage());
 		
 		write(buffer.toString());
 	}
 
 	public void commit() throws IOException {
         writer.flush();
+        writer.close();
 	}
 	
 	private void write(String string) {
