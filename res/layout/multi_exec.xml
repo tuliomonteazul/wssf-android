@@ -12,18 +12,18 @@
 		android:textColor="#444444"
 		android:text="Log de execução:"></TextView>
 
+	<ScrollView android:id="@+id/scrollLog"
+	    android:layout_height="370dip"
+	    android:layout_width="match_parent"
+	    android:layout_below="@id/lbLogExecucao">
+	   <br.unifor.wssf.view.widget.LogTextView android:inputType="textMultiLine" 
+			android:id="@+id/etLogExecucao"
+			android:textColor="#777777"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+		</br.unifor.wssf.view.widget.LogTextView>
+	</ScrollView>
 	
-	<br.unifor.wssf.view.widget.LogEditText android:inputType="textMultiLine" 
-		android:id="@+id/etLogExecucao"
-		android:layout_width="match_parent"
-		android:layout_height="370dip"
-		android:layout_marginTop="10dip"
-		android:gravity="top"
-		android:editable="false"
-		android:scrollbars="vertical"
-		android:layout_below="@id/lbLogExecucao">
-	</br.unifor.wssf.view.widget.LogEditText>
-
 	<Button android:text="Iniciar Experimentos" android:id="@+id/btExperimento"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
