@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
+import br.unifor.wssf.view.execution.battery.BatteryStatus;
 import br.unifor.wssf.view.execution.single.controller.SingleExecProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
@@ -62,13 +63,14 @@ public class SingleExecProgressActivity extends Activity {
 		final String policy = params.getString("policy");
 		final Integer clientTimeout = params.getInt("clientTimeout");
 		final SingleExecProgressController singleExecProgressController = new SingleExecProgressController(this);
+		final BatteryStatus batteryStatus = new BatteryStatus(this);
 		
 		new Thread() {
 			@Override
 			public void run() {
 		
 				try {
-					experimentManager = new ExperimentManager(replica, policy, clientTimeout);
+					experimentManager = new ExperimentManager(replica, policy, clientTimeout, batteryStatus);
 					experimentManager.execute(singleExecProgressController);
 					
 				} catch (Exception e1) {
