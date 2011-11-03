@@ -3,17 +3,17 @@ package br.unifor.wssf.experiment.executor;
 import java.util.List;
 
 import br.unifor.wssf.experiment.manager.ExperimentManager;
-import br.unifor.wssf.view.execution.multiple.MultiExecActivity;
-import br.unifor.wssf.view.execution.multiple.controller.MultiExecController;
+import br.unifor.wssf.view.execution.battery.BatteryStatus;
 
 public class MultipleExecutor extends Thread {
 	
-	private final MultiExecController multiExecController;
+	private static final int TENTATIVAS = 3;
 	private final ExecutionLog executionLog;
+	private BatteryStatus batteryStatus;
 	
-	public MultipleExecutor(MultiExecActivity multiExecActivity, ExecutionLog executionLog) {
+	public MultipleExecutor(BatteryStatus batteryStatus, ExecutionLog executionLog) {
 		super();
-		this.multiExecController = new MultiExecController(multiExecActivity);
+		this.batteryStatus = batteryStatus;
 		this.executionLog = executionLog;
 	}
 	
@@ -37,20 +37,8 @@ public class MultipleExecutor extends Thread {
 			
 			int count = 1;
 			for (Execution execution : executions) {
-				long tempoExecInicio = System.currentTimeMillis();
-				
-				executionLog.log("Execução "+ count + "/" + totalExecucoes);
-				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
-				executionLog.log("Política: "+ execution.getPolicyId());
-				
-				ExperimentManager experimentManager = new ExperimentManager(execution.getReplicaToInvoke(), execution.getPolicyId());
-				experimentManager.execute(multiExecController);
-				
-				long tempoExecFim = System.currentTimeMillis();
-				float tempoExec = (float) (tempoExecFim - tempoExecInicio) / 1000;
-				
-				executionLog.log("Fim da execução "+ count + " ("+tempoExec + " segundos)");
-				executionLog.log("----------------------");
+
+				tryToExecute(totalExecucoes, count, execution);
 				
 				count++;
 			}
@@ -61,9 +49,43 @@ public class MultipleExecutor extends Thread {
 			executionLog.log("Fim das execuções");
 			executionLog.log("Tempo total consumido: "+ tempoTotal + " segundos");
 		} catch (Exception e) {
+			e.printStackTrace();
 			executionLog.log("Não foi possível completar as execuções.");
 			executionLog.log(e.getMessage());
-			e.printStackTrace();
+		}
+	}
+
+	private void tryToExecute(final int totalExecucoes, int count,
+			Execution execution) {
+		
+		int tentativa = 0;
+		while (tentativa < TENTATIVAS) {
+			
+			try {
+				long tempoExecInicio = System.currentTimeMillis();
+				
+				executionLog.log("Execução "+ count + "/" + totalExecucoes);
+				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
+				executionLog.log("Política: "+ execution.getPolicyId());
+				
+				ExperimentManager experimentManager = new ExperimentManager(execution.getReplicaToInvoke(), execution.getPolicyId(), batteryStatus);
+				experimentManager.execute();
+				
+				long tempoExecFim = System.currentTimeMillis();
+				float tempoExec = (float) (tempoExecFim - tempoExecInicio) / 1000;
+				
+				executionLog.log("Fim da execução "+ count + " ("+tempoExec + " segundos)");
+				executionLog.log("----------------------");
+				
+				break;
+			} catch (Exception e) {
+				e.printStackTrace();
+				executionLog.log("Não foi possível completar a execução "+count);
+				tentativa++;
+				executionLog.log("Tentando novamente. Tentativa ("+tentativa+"/"+TENTATIVAS+")");
+				executionLog.log(e.getMessage());
+			}
+		
 		}
 	}
 }
