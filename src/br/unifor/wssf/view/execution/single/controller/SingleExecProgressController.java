@@ -1,7 +1,5 @@
 package br.unifor.wssf.view.execution.single.controller;
 
-import java.io.IOException;
-
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
