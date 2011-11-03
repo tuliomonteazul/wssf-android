@@ -14,9 +14,10 @@ public class Experiment {
 	private String selectedServer;
 	private Integer firstConnectionTime = new Integer(0);
 	private Integer firstReadTime = new Integer(0);
+	private Float startBattery;
+	private Float finalBattery;
 	
 	// TODO adicionar consumo de memoria
-	// TODO adicionar consumo de bateria
 	
 	//private StringBuffer details;
 
@@ -125,4 +126,26 @@ public class Experiment {
 		
 		return sb.toString();
 	}
+
+	public Float getStartBattery() {
+		return startBattery;
+	}
+
+	public void setStartBattery(Float startBattery) {
+		this.startBattery = startBattery;
+	}
+
+	public Float getFinalBattery() {
+		return finalBattery;
+	}
+
+	public void setFinalBattery(Float finalBattery) {
+		this.finalBattery = finalBattery;
+	}
+
+	public Float getBatteryUsage() {
+		return finalBattery - startBattery;
+	}
+	
+	
 }
