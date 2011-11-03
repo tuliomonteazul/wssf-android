@@ -19,6 +19,7 @@ import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
+import br.unifor.wssf.view.execution.battery.BatteryStatus;
 
 public class SingleExecConfigActivity extends Activity {
 	
@@ -102,6 +103,8 @@ public class SingleExecConfigActivity extends Activity {
 
 	protected void doExperiment() {
 		
+		final BatteryStatus batteryStatus = new BatteryStatus(this);
+		
 		new Thread() {
 			@Override
 			public void run() {
@@ -127,7 +130,7 @@ public class SingleExecConfigActivity extends Activity {
 				
 				
 				try {
-					experimentManager = new ExperimentManager(replica, policy,  Integer.parseInt(clientTimeout));
+					experimentManager = new ExperimentManager(replica, policy,  Integer.parseInt(clientTimeout), batteryStatus);
 					experimentManager.execute();
 					
 				} catch (Exception e1) {
