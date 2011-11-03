@@ -231,7 +231,6 @@ public class jProxy extends Thread {
 	}
 
 	public void run() {
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread começou");
 		try {
 			// create a server socket, and loop forever listening for
 			// client connections
@@ -241,9 +240,7 @@ public class jProxy extends Thread {
 
 			
 			while (canRun) {
-				Log.d("teste", "server.accept");
 				Socket client = server.accept();
-				Log.d("teste", "aceitou");
 				ProxyThread t = new ProxyThread(client, fwdServer, fwdPort, invocationListeners);
 				t.setTimeout(ptTimeout);
 				t.start();
@@ -253,9 +250,7 @@ public class jProxy extends Thread {
 				Log.e("proxy", "jProxy Thread error: " + e.getMessage(), e);
 		}
 		
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu1");
 		closeSocket();
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu2");
 	}
 
 	public void setCanRun(boolean canRun) {
@@ -308,7 +303,6 @@ class ProxyThread extends Thread implements WSSFProxy {
 	}
 
 	public void run() {
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread começou");
 		try {
 			long startTime = System.currentTimeMillis();
 
@@ -346,9 +340,6 @@ class ProxyThread extends Thread implements WSSFProxy {
 			ServerSelectionPolicy policy = null;
 			if (existeReplica) {
 				String policyName = HttpUtils.getHTTPRequestFieldValue(request,"ServerSelectionPolicy");
-				Log.d("proxy", "policyName="+policyName);
-				Log.d("proxy", "Request:");
-				Log.d("proxy", new String(request));
 				policy = ServerSelectionPolicyFactory.createServerSelectionPolicy(policyName); 
 			}
 			if (policy != null)	{								
@@ -473,7 +464,6 @@ class ProxyThread extends Thread implements WSSFProxy {
 			// e.printStackTrace();
 		}
 		
-		Log.d("threads", Thread.currentThread().getId() + " " + Thread.currentThread().getClass().toString() +"proxythread morreu");
 	}
 
 	private byte[] getHTTPData(InputStream in, boolean waitForDisconnect) {
