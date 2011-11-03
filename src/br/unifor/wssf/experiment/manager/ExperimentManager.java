@@ -15,34 +15,45 @@ import br.unifor.wssf.experiment.dao.TxtExperimentDAO;
 import br.unifor.wssf.experiment.model.Experiment;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
+import br.unifor.wssf.view.execution.battery.BatteryStatus;
 
 public class ExperimentManager {
 
     private String urlString;
     private String serverSelectionPolicyName;
     public static Experiment experiment;
-    private long currentTime;
     private static Logger logger2 = Logger.getLogger("experimentLog");
-    private int clientTimeout = 300000; // cinco minutos
+    private int clientTimeout = 60000; // um minuto
     private jProxy jProxy;
+    private BatteryStatus batteryStatus;
     
-    public ExperimentManager(String replicaId, String policyId, int clientTimeout) throws SecurityException, IOException {
-      this(replicaId,policyId);
+    public ExperimentManager(String replicaId, String policyId, int clientTimeout, BatteryStatus batteryStatus) throws SecurityException, IOException {
+      this(replicaId,policyId, batteryStatus);
       this.clientTimeout = clientTimeout * 1000;
     }
     
-	public ExperimentManager(String replicaId, String policyId) throws SecurityException, IOException {
-		urlString = getReplicaURLString(replicaId);
-		serverSelectionPolicyName = getPolicyName(policyId);
+//    public ExperimentManager(String replicaId, String policyId) throws SecurityException, IOException {
+//		this(replicaId, policyId, null);
+//		
+//	}
+//    
+	public ExperimentManager(String replicaId, String policyId, BatteryStatus batteryStatus) throws SecurityException, IOException {
+		this.urlString = getReplicaURLString(replicaId);
+		this.serverSelectionPolicyName = getPolicyName(policyId);
+		this.batteryStatus = batteryStatus;
+		createExperiment(replicaId, policyId);
+	}
+    
+	private void createExperiment(String replicaId, String policyId) {
 		experiment = new Experiment();
-		currentTime = System.currentTimeMillis();
+		long currentTime = System.currentTimeMillis();
 		experiment.setId(replicaId +"."+ policyId +"."+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(currentTime)));
 		experiment.setTime(new Date(currentTime));
 		experiment.setRequestedURL(urlString);
 		experiment.setPolicyName(serverSelectionPolicyName);
-		
+		experiment.setStartBattery(batteryStatus.getLevel());
 	}
-    
+
 	private String getReplicaURLString(String replicaId) throws IOException{
 		
 		int sequence = Integer.parseInt(replicaId.substring(1));
@@ -101,15 +112,15 @@ public class ExperimentManager {
 		c.setProxy("localhost", "8080");
 
 		long startInvocation = System.currentTimeMillis();
-		Log.d("experiment", "Cliente requisitando " + urlString + " com a política " + serverSelectionPolicyName);
 		String message = c.requisitar(urlString, serverSelectionPolicyName, clientTimeout);
 		long endInvocation = System.currentTimeMillis();
 		Integer elapsedTime = new Integer((int)(endInvocation - startInvocation));
 		experiment.setElapsedTime(elapsedTime);
 		experiment.setRequestStatus(message); //TODO implementar requestStatus
 		experiment.setDataReceived(c.getResponseLength());
-		Log.d("experiment", "Fim do Experimento: "+experiment);
-		ExperimentDAO dao = new TxtExperimentDAO();
+		experiment.setFinalBattery(batteryStatus.getLevel());
+		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus());
+		ExperimentDAO dao = new TxtExperimentDAO(batteryStatus.getContext());
 		dao.insertExperiment(experiment);
 		dao.commit();
 		
