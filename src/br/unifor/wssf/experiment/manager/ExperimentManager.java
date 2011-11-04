@@ -5,8 +5,8 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
+import android.content.Context;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
@@ -15,20 +15,21 @@ import br.unifor.wssf.experiment.dao.TxtExperimentDAO;
 import br.unifor.wssf.experiment.model.Experiment;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
-import br.unifor.wssf.view.execution.battery.BatteryStatus;
+import br.unifor.wssf.view.execution.status.SystemStatus;
 
 public class ExperimentManager {
 
     private String urlString;
     private String serverSelectionPolicyName;
     public static Experiment experiment;
-    private static Logger logger2 = Logger.getLogger("experimentLog");
+//    private static Logger logger2 = Logger.getLogger("experimentLog");
     private int clientTimeout = 60000; // um minuto
     private jProxy jProxy;
-    private BatteryStatus batteryStatus;
+    private SystemStatus systemStatus;
+    private ExperimentDAO experimentDAO;
     
-    public ExperimentManager(String replicaId, String policyId, int clientTimeout, BatteryStatus batteryStatus) throws SecurityException, IOException {
-      this(replicaId,policyId, batteryStatus);
+    public ExperimentManager(String replicaId, String policyId, int clientTimeout, Context context) throws SecurityException, IOException {
+      this(replicaId,policyId, context);
       this.clientTimeout = clientTimeout * 1000;
     }
     
@@ -37,10 +38,11 @@ public class ExperimentManager {
 //		
 //	}
 //    
-	public ExperimentManager(String replicaId, String policyId, BatteryStatus batteryStatus) throws SecurityException, IOException {
+	public ExperimentManager(String replicaId, String policyId, Context context) throws SecurityException, IOException {
 		this.urlString = getReplicaURLString(replicaId);
 		this.serverSelectionPolicyName = getPolicyName(policyId);
-		this.batteryStatus = batteryStatus;
+		this.systemStatus = new SystemStatus(context);
+		this.experimentDAO = new TxtExperimentDAO(context);
 		createExperiment(replicaId, policyId);
 	}
     
@@ -51,7 +53,7 @@ public class ExperimentManager {
 		experiment.setTime(new Date(currentTime));
 		experiment.setRequestedURL(urlString);
 		experiment.setPolicyName(serverSelectionPolicyName);
-		experiment.setStartBattery(batteryStatus.getLevel());
+		experiment.setStartBattery(systemStatus.getBatteryStatus().getLevel());
 	}
 
 	private String getReplicaURLString(String replicaId) throws IOException{
@@ -118,11 +120,12 @@ public class ExperimentManager {
 		experiment.setElapsedTime(elapsedTime);
 		experiment.setRequestStatus(message); //TODO implementar requestStatus
 		experiment.setDataReceived(c.getResponseLength());
-		experiment.setFinalBattery(batteryStatus.getLevel());
-		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus());
-		ExperimentDAO dao = new TxtExperimentDAO(batteryStatus.getContext());
-		dao.insertExperiment(experiment);
-		dao.commit();
+		experiment.setFinalBattery(systemStatus.getBatteryStatus().getLevel());
+		experiment.setAvailableMemory(systemStatus.getMemoryStatus().getAvailableMemory());
+		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus() + ". Memória: "+experiment.getAvailableMemory());
+		
+		experimentDAO.insertExperiment(experiment);
+		experimentDAO.commit();
 		
 		jProxy.sendCloseMessage();
 		
@@ -130,7 +133,7 @@ public class ExperimentManager {
 	}
 	
 	private void waitForProxyClose() throws InterruptedException {
-		while (jProxy.isRunning()) {
+		while (jProxy.isRunning() || jProxy.isAlive()) {
 			Thread.sleep(500);
 		}
 	}
