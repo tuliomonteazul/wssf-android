@@ -1,6 +1,7 @@
 package br.unifor.wssf.view.execution.multiple;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,7 +9,6 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import br.unifor.wssf.R;
 import br.unifor.wssf.experiment.executor.MultipleExecutor;
-import br.unifor.wssf.view.execution.battery.BatteryStatus;
 import br.unifor.wssf.view.widget.LogTextView;
 
 public class MultiExecActivity extends Activity {
@@ -29,13 +29,13 @@ public class MultiExecActivity extends Activity {
 		
 		Button btIniciarExperimentos = (Button) findViewById(R.id.btExperimento);
 		
-		final BatteryStatus batteryStatus = new BatteryStatus(this);
+		final Context context = this;
 		
 		btIniciarExperimentos.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				MultipleExecutor multipleExecutor = new MultipleExecutor(batteryStatus, logExecucao);
+				MultipleExecutor multipleExecutor = new MultipleExecutor(context, logExecucao);
 				multipleExecutor.start();
 			}
 		});
