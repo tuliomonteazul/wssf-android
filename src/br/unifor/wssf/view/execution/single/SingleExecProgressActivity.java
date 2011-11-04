@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
-import br.unifor.wssf.view.execution.battery.BatteryStatus;
 import br.unifor.wssf.view.execution.single.controller.SingleExecProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
@@ -63,14 +63,14 @@ public class SingleExecProgressActivity extends Activity {
 		final String policy = params.getString("policy");
 		final Integer clientTimeout = params.getInt("clientTimeout");
 		final SingleExecProgressController singleExecProgressController = new SingleExecProgressController(this);
-		final BatteryStatus batteryStatus = new BatteryStatus(this);
+		final Context context = this;
 		
 		new Thread() {
 			@Override
 			public void run() {
 		
 				try {
-					experimentManager = new ExperimentManager(replica, policy, clientTimeout, batteryStatus);
+					experimentManager = new ExperimentManager(replica, policy, clientTimeout, context);
 					experimentManager.execute(singleExecProgressController);
 					
 				} catch (Exception e1) {

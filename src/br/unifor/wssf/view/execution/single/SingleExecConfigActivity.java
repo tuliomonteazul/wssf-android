@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
-import br.unifor.wssf.view.execution.battery.BatteryStatus;
 
 public class SingleExecConfigActivity extends Activity {
 	
@@ -103,8 +103,8 @@ public class SingleExecConfigActivity extends Activity {
 
 	protected void doExperiment() {
 		
-		final BatteryStatus batteryStatus = new BatteryStatus(this);
-		
+		final Context context = this;
+
 		new Thread() {
 			@Override
 			public void run() {
@@ -130,7 +130,7 @@ public class SingleExecConfigActivity extends Activity {
 				
 				
 				try {
-					experimentManager = new ExperimentManager(replica, policy,  Integer.parseInt(clientTimeout), batteryStatus);
+					experimentManager = new ExperimentManager(replica, policy,  Integer.parseInt(clientTimeout), context);
 					experimentManager.execute();
 					
 				} catch (Exception e1) {
