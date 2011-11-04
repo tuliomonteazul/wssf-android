@@ -1,4 +1,4 @@
-package br.unifor.wssf.view.execution.battery;
+package br.unifor.wssf.view.execution.status;
 
 import android.content.Context;
 import android.content.Intent;
