@@ -57,6 +57,8 @@ public class TxtExperimentDAO implements ExperimentDAO {
     	buffer.append("FirstReadTime");
     	buffer.append(SEPARATOR);
     	buffer.append("batteryUsage");
+    	buffer.append(SEPARATOR);
+    	buffer.append("memoryAvailable");
     	
     	write(buffer.toString());
 	}
@@ -93,6 +95,8 @@ public class TxtExperimentDAO implements ExperimentDAO {
 		buffer.append(e.getFirstReadTime() == null ? 0 : e.getFirstReadTime());
 		buffer.append(SEPARATOR);
 		buffer.append(e.getBatteryUsage());
+		buffer.append(SEPARATOR);
+		buffer.append(e.getAvailableMemory());
 		
 		write(buffer.toString());
 	}

@@ -2,18 +2,19 @@ package br.unifor.wssf.experiment.executor;
 
 import java.util.List;
 
+import android.content.Context;
+import android.util.Log;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
-import br.unifor.wssf.view.execution.battery.BatteryStatus;
 
 public class MultipleExecutor extends Thread {
 	
 	private static final int TENTATIVAS = 3;
 	private final ExecutionLog executionLog;
-	private BatteryStatus batteryStatus;
+	private Context context;
 	
-	public MultipleExecutor(BatteryStatus batteryStatus, ExecutionLog executionLog) {
+	public MultipleExecutor(Context context, ExecutionLog executionLog) {
 		super();
-		this.batteryStatus = batteryStatus;
+		this.context = context;
 		this.executionLog = executionLog;
 	}
 	
@@ -51,14 +52,14 @@ public class MultipleExecutor extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 			executionLog.log("Não foi possível completar as execuções.");
-			executionLog.log(e.getMessage());
+			executionLog.log(e.toString());
 		}
 	}
 
 	private void tryToExecute(final int totalExecucoes, int count,
 			Execution execution) {
 		
-		int tentativa = 0;
+		int tentativa = 1;
 		while (tentativa < TENTATIVAS) {
 			
 			try {
@@ -68,7 +69,7 @@ public class MultipleExecutor extends Thread {
 				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
 				executionLog.log("Política: "+ execution.getPolicyId());
 				
-				ExperimentManager experimentManager = new ExperimentManager(execution.getReplicaToInvoke(), execution.getPolicyId(), batteryStatus);
+				ExperimentManager experimentManager = new ExperimentManager(execution.getReplicaToInvoke(), execution.getPolicyId(), context);
 				experimentManager.execute();
 				
 				long tempoExecFim = System.currentTimeMillis();
@@ -80,12 +81,20 @@ public class MultipleExecutor extends Thread {
 				break;
 			} catch (Exception e) {
 				e.printStackTrace();
-				executionLog.log("Não foi possível completar a execução "+count);
+				executionLog.log("Erro na execução "+count);
 				tentativa++;
+				executionLog.log(e.toString());
 				executionLog.log("Tentando novamente. Tentativa ("+tentativa+"/"+TENTATIVAS+")");
-				executionLog.log(e.getMessage());
+				Log.d("execution", "Erro na execução "+count);
+				Log.e("execution",e.toString());
+				Log.d("execution", "Tentando novamente. Tentativa ("+tentativa+"/"+TENTATIVAS+")");
 			}
 		
+		}
+		if (tentativa == TENTATIVAS) {
+			executionLog.log("Não foi possível completar a execução "+count);
+			Log.d("execution", "Não foi possível completar a execução "+count);
+			executionLog.log("----------------------");
 		}
 	}
 }
