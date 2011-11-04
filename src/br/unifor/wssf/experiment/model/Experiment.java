@@ -16,6 +16,7 @@ public class Experiment {
 	private Integer firstReadTime = new Integer(0);
 	private Float startBattery;
 	private Float finalBattery;
+	private Long availableMemory;
 	
 	// TODO adicionar consumo de memoria
 	
@@ -146,6 +147,14 @@ public class Experiment {
 	public Float getBatteryUsage() {
 		return finalBattery - startBattery;
 	}
-	
+
+	public Long getAvailableMemory() {
+		return availableMemory;
+	}
+
+	public void setAvailableMemory(Long availableMemory) {
+		this.availableMemory = availableMemory;
+	}
+
 	
 }
