@@ -5,51 +5,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
-import br.unifor.wssf.experiment.manager.ExperimentManager;
+import br.unifor.wssf.experiment.execution.Execution;
 
 public class SingleExecConfigActivity extends Activity {
 	
 	private ArrayList<String> listReplicas;
-	private ExperimentManager experimentManager;
 	
-	  /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.single_exec);
         
         createComboReplicas();
         
         createComboPolicys();
         
-        final Activity activity = this;
         Button btExperimento = (Button) findViewById(R.id.btExperimento);
         btExperimento.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				
-				CheckBox checkProgresso = (CheckBox) findViewById(R.id.checkProgresso);
-				if (checkProgresso.isChecked()) {
-					callProgressActivity();
-				} else {
-					Toast.makeText(activity, "Iniciando experimento", Toast.LENGTH_SHORT).show();
-					doExperiment();
-				}
+				callProgressActivity();
 			}
 
 		});
@@ -59,7 +45,6 @@ public class SingleExecConfigActivity extends Activity {
 	private void createComboReplicas() {
 		
 		listReplicas = getListReplicas();
-		
 		
 		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listReplicas);
@@ -101,86 +86,36 @@ public class SingleExecConfigActivity extends Activity {
 		return listPolicys;
 	}
 
-	protected void doExperiment() {
-		
-		final Context context = this;
-
-		new Thread() {
-			@Override
-			public void run() {
-				
-				final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
-				final String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
-				
-				final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
-				String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
-				
-				final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
-				final String clientTimeout = editTimeout.getText().toString();
-				
-				final EditText editCalls = (EditText) findViewById(R.id.calls);
-				final EditText editFator = (EditText) findViewById(R.id.fator);
-				final String calls = editCalls.getText().toString();
-				final String fator = editFator.getText().toString();
-				if (policy.equalsIgnoreCase("BP") && calls != null
-						&& !"".equals(calls) && fator != null
-						&& !"".equals(fator)) {
-					policy += "["+calls+","+fator+"]";
-				}
-				
-				
-				try {
-					experimentManager = new ExperimentManager(replica, policy,  Integer.parseInt(clientTimeout), context);
-					experimentManager.execute();
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					try {
-					  Log.e("testeProxy", "Ocorreu um erro: " + e1.getMessage());
-					  Log.e("testeProxy", "Fim do Experimento: "+ExperimentManager.experiment);
-//					  ExperimentDAO dao = new ExcelExperimentDAO();
-//					  dao.insertExperiment(ExperimentManager.experiment);
-//					  dao.commit();
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-				}
-			}
-		}.start();
-	}
-	
-
 	private void callProgressActivity() {
 		Intent intent = new Intent(this, SingleExecProgressActivity.class);
 		
+		Bundle params = new Bundle();
+		params.putStringArrayList("listReplicas", listReplicas);
+		params.putSerializable("execution", generateExecution());
+		intent.putExtras(params);
+		
+		startActivity(intent);
+		
+	}
+	
+	private Execution generateExecution() {
 		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
-		String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
-		
-		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
-		String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
-		
-		final EditText editTimeout = (EditText) findViewById(R.id.clientTimeout);
-		String clientTimeout = editTimeout.getText().toString();
+		final String replica = "R"+ (comboReplicas.getSelectedItemPosition()+1);
 		
 		final EditText editCalls = (EditText) findViewById(R.id.calls);
 		final EditText editFator = (EditText) findViewById(R.id.fator);
 		final String calls = editCalls.getText().toString();
 		final String fator = editFator.getText().toString();
+		
+		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
+		String policy = comboPolicys.getSelectedItem().toString().substring(0, 2).trim();
 		if (policy.equalsIgnoreCase("BP") && calls != null
 				&& !"".equals(calls) && fator != null
 				&& !"".equals(fator)) {
 			policy += "["+calls+","+fator+"]";
 		}
 		
-		Bundle params = new Bundle();
-		params.putStringArrayList("listReplicas", listReplicas);
-		params.putString("replica", replica);
-		params.putString("policy", policy);
-		params.putInt("clientTimenout", Integer.parseInt(clientTimeout));
-		intent.putExtras(params);
-		
-		startActivity(intent);
-		
+		return new Execution(replica, policy);
 	}
 	
 }

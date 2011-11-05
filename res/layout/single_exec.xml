@@ -10,11 +10,6 @@
 	<Spinner android:layout_height="wrap_content" android:id="@+id/comboPolicys"
 		android:layout_width="match_parent"></Spinner>
 		
-	<EditText android:layout_height="wrap_content" android:id="@+id/clientTimeout"
-		android:layout_width="match_parent" android:text="60">
-		<requestFocus></requestFocus>
-	</EditText>
-	
 	<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" 
 		android:id="@+id/tableLayout1">
 		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"  
@@ -45,9 +40,6 @@
 			
 		</TableRow>
 	</TableLayout>
-	
-	<CheckBox android:text="Exibir progresso" android:id="@+id/checkProgresso" 
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
 	
 	<Button android:text="Iniciar Experimento" android:id="@+id/btExperimento"
 		android:layout_width="match_parent" android:layout_height="wrap_content"></Button>

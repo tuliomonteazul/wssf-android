@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.unifor.wssf.R;
+import br.unifor.wssf.experiment.execution.Execution;
+import br.unifor.wssf.experiment.executor.SingleExecutor;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
 import br.unifor.wssf.view.execution.single.controller.SingleExecProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
@@ -25,7 +25,7 @@ public class SingleExecProgressActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.progress);
+		setContentView(R.layout.single_exec_progress);
 		
 		Intent intent = getIntent();
 		if (intent != null) {
@@ -40,7 +40,6 @@ public class SingleExecProgressActivity extends Activity {
 		}
 		
 	}
-	
 
 	private void createReplicasProgress(ArrayList<String> listReplicas) {
 		for (String replica : listReplicas) {
@@ -59,34 +58,11 @@ public class SingleExecProgressActivity extends Activity {
 
 	private void doExperiment(Bundle params) {
 
-		final String replica = params.getString("replica");
-		final String policy = params.getString("policy");
-		final Integer clientTimeout = params.getInt("clientTimeout");
+		final Execution execution = (Execution) params.getSerializable("execution");
 		final SingleExecProgressController singleExecProgressController = new SingleExecProgressController(this);
-		final Context context = this;
-		
-		new Thread() {
-			@Override
-			public void run() {
-		
-				try {
-					experimentManager = new ExperimentManager(replica, policy, clientTimeout, context);
-					experimentManager.execute(singleExecProgressController);
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					try {
-					  Log.e("testeProxy", "Ocorreu um erro: " + e1.getMessage());
-					  Log.e("testeProxy", "Fim do Experimento: "+ExperimentManager.experiment);
-//					  ExperimentDAO dao = new ExcelExperimentDAO();
-//					  dao.insertExperiment(ExperimentManager.experiment);
-//					  dao.commit();
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-				}
-			}
-		}.start();
+
+		SingleExecutor singleExecutor = new SingleExecutor(execution, this, singleExecProgressController);
+		singleExecutor.start();
 		
 	}
 	

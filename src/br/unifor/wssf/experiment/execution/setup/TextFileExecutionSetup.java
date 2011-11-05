@@ -1,4 +1,4 @@
-package br.unifor.wssf.experiment.executor;
+package br.unifor.wssf.experiment.execution.setup;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,25 +7,39 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
+import br.unifor.wssf.experiment.execution.Execution;
 
-public class ExecutionSetup {
+public class TextFileExecutionSetup implements ExecutionSetup {
 	private static final String SETUP_FILE = "execution-setup";
 	private final List<Execution> executions = new ArrayList<Execution>();
 	private final List<Execution> execsToRepeat = new ArrayList<Execution>();
 	private int repeat;
 	
-	private static ExecutionSetup instance;
+	private static TextFileExecutionSetup instance;
 	
-	private ExecutionSetup() {
+	private TextFileExecutionSetup() {
 		super();
 	}
 	
-	public static synchronized ExecutionSetup getInstance() {
+	public static synchronized TextFileExecutionSetup getInstance() {
 		if (instance == null) {
-			instance = new ExecutionSetup();
+			instance = new TextFileExecutionSetup();
 		}
 		return instance;
+	}
+	
+	@Override
+	public List<Execution> getExecutions() {
+		List<Execution> executions = null;
+		try {
+			executions = readSetupFile();
+		} catch (IOException e) {
+			Log.e("execution", e.toString());
+			e.printStackTrace();
+		}
+		return executions;
 	}
 	
 	public List<Execution> readSetupFile() throws IOException {
@@ -38,7 +52,7 @@ public class ExecutionSetup {
 			boolean isRepeatLine = checkRepeat(line);
 			
 			if (!isCommentLine(line) && !isRepeatLine) {
-				final Execution execution = new Execution(line);
+				final Execution execution = Execution.createFromLineFile(line);
 				executions.add(execution);
 				if (repeat > 0) {
 					execsToRepeat.add(execution);

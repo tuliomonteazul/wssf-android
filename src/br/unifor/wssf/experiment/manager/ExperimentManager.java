@@ -10,9 +10,9 @@ import android.content.Context;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
+import br.unifor.wssf.experiment.Experiment;
 import br.unifor.wssf.experiment.dao.ExperimentDAO;
 import br.unifor.wssf.experiment.dao.TextFileExperimentDAO;
-import br.unifor.wssf.experiment.model.Experiment;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
 import br.unifor.wssf.view.execution.status.SystemStatus;
@@ -83,7 +83,6 @@ public class ExperimentManager {
 		} else {
 			return "NoPolicy";
 		}
-		
 	}
     
 	public Experiment execute(WSSFInvocationListener... invocationListeners) throws Exception{

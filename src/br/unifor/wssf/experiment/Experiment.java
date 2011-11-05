@@ -1,4 +1,4 @@
-package br.unifor.wssf.experiment.model;
+package br.unifor.wssf.experiment;
 
 import java.util.Date;
 

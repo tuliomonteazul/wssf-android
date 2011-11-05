@@ -10,7 +10,7 @@ import java.util.List;
 
 import android.content.Context;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
-import br.unifor.wssf.experiment.model.Experiment;
+import br.unifor.wssf.experiment.Experiment;
 
 public class TextFileExperimentDAO implements ExperimentDAO {
 	

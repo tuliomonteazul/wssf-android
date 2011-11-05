@@ -2,7 +2,7 @@ package br.unifor.wssf.experiment.dao;
 
 import java.util.List;
 
-import br.unifor.wssf.experiment.model.Experiment;
+import br.unifor.wssf.experiment.Experiment;
 
 public interface ExperimentDAO {
 

@@ -4,8 +4,12 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import br.unifor.wssf.experiment.Experiment;
+import br.unifor.wssf.experiment.execution.Execution;
+import br.unifor.wssf.experiment.execution.log.ExecutionLog;
+import br.unifor.wssf.experiment.execution.setup.ExecutionSetup;
+import br.unifor.wssf.experiment.execution.setup.TextFileExecutionSetup;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
-import br.unifor.wssf.experiment.model.Experiment;
 
 public class MultipleExecutor extends Thread {
 	
@@ -26,8 +30,8 @@ public class MultipleExecutor extends Thread {
 	
 	public void executeExperiments() {
 		try {
-			ExecutionSetup executionSetup = ExecutionSetup.getInstance();
-			List<Execution> executions = executionSetup.readSetupFile();
+			ExecutionSetup executionSetup = TextFileExecutionSetup.getInstance();
+			List<Execution> executions = executionSetup.getExecutions();
 			final int totalExecucoes = executions.size();
 			
 			executionLog.log("----------------------");
@@ -63,9 +67,7 @@ public class MultipleExecutor extends Thread {
 		
 		int tentativa = 1;
 		while (tentativa < TENTATIVAS) {
-			
 			try {
-				
 				executionLog.log("Execução "+ count + "/" + totalExecucoes);
 				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
 				executionLog.log("Política: "+ execution.getPolicyId());
@@ -87,7 +89,6 @@ public class MultipleExecutor extends Thread {
 				Log.e("execution",e.toString());
 				Log.d("execution", "Tentando novamente. Tentativa ("+tentativa+"/"+TENTATIVAS+")");
 			}
-		
 		}
 		if (tentativa == TENTATIVAS) {
 			executionLog.log("Não foi possível completar a execução "+count);

@@ -13,8 +13,8 @@ import android.os.Environment;
 
 public class TextFileReplicaDAO implements ReplicaDAO {
 
-	public final static String REPLICA_FILE_PATH = Environment.getExternalStorageDirectory()+"/Android/data/br.unifor.wssf/";
-//	public final static String REPLICA_FILE_PATH = "/data/data/br.unifor.wssf/files/";
+//	public final static String REPLICA_FILE_PATH = Environment.getExternalStorageDirectory()+"/Android/data/br.unifor.wssf/";
+	public final static String REPLICA_FILE_PATH = "/data/data/br.unifor.wssf/files/";
 	public final static String REPLICA_FILE_NAME = "replicas.txt";
 	
 	private List<String> replicaListString;

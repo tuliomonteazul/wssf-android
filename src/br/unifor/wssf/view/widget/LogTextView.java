@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import br.unifor.wssf.experiment.executor.ExecutionLog;
+import br.unifor.wssf.experiment.execution.log.ExecutionLog;
 
 public class LogTextView extends TextView implements ExecutionLog {
 
