@@ -15,6 +15,19 @@ public class ExecutionSetup {
 	private final List<Execution> execsToRepeat = new ArrayList<Execution>();
 	private int repeat;
 	
+	private static ExecutionSetup instance;
+	
+	private ExecutionSetup() {
+		super();
+	}
+	
+	public static synchronized ExecutionSetup getInstance() {
+		if (instance == null) {
+			instance = new ExecutionSetup();
+		}
+		return instance;
+	}
+	
 	public List<Execution> readSetupFile() throws IOException {
 		final File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + SETUP_FILE);
 		final BufferedReader reader = new BufferedReader(new FileReader(file));

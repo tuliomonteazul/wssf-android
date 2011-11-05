@@ -26,7 +26,7 @@ public class MultipleExecutor extends Thread {
 	
 	public void executeExperiments() {
 		try {
-			ExecutionSetup executionSetup = new ExecutionSetup();
+			ExecutionSetup executionSetup = ExecutionSetup.getInstance();
 			List<Execution> executions = executionSetup.readSetupFile();
 			final int totalExecucoes = executions.size();
 			
