@@ -26,6 +26,9 @@ import br.unifor.wssf.experiment.manager.ExperimentManager;
  */
 public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocationListener{
     
+	private static final int DEFAULT_NUMBER_CALLS = 10;
+	private static final double DEFAULT_FATOR = 1.5;
+	
 	private List<URL> replicaFailList = new ArrayList<URL>();
 	private byte[] response;
 	List<WSSFInvocationThread> invocationList = new ArrayList<WSSFInvocationThread>();
@@ -40,9 +43,7 @@ public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocati
 	private Logger logger = Logger.getLogger("experimentLog");
 
 	public BoxPlotPolicy() {
-		super();
-		numberOfCallsToWait = 10;
-		fator = 1.5;
+		this(DEFAULT_NUMBER_CALLS, DEFAULT_FATOR);
 	}
 	
 	public BoxPlotPolicy(int numberOfCallsToWait, double fator) {
@@ -174,7 +175,7 @@ public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocati
 		
 	}
 	
-	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionClosed(WSSFInvocationThread invocationThread) {
 		
 	}
 	

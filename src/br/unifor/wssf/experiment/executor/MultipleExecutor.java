@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.util.Log;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
+import br.unifor.wssf.experiment.model.Experiment;
 
 public class MultipleExecutor extends Thread {
 	
@@ -42,6 +43,7 @@ public class MultipleExecutor extends Thread {
 				tryToExecute(totalExecucoes, count, execution);
 				
 				count++;
+				
 			}
 			
 			long tempoTotalFim = System.currentTimeMillis();
@@ -63,19 +65,15 @@ public class MultipleExecutor extends Thread {
 		while (tentativa < TENTATIVAS) {
 			
 			try {
-				long tempoExecInicio = System.currentTimeMillis();
 				
 				executionLog.log("Execução "+ count + "/" + totalExecucoes);
 				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
 				executionLog.log("Política: "+ execution.getPolicyId());
 				
 				ExperimentManager experimentManager = new ExperimentManager(execution.getReplicaToInvoke(), execution.getPolicyId(), context);
-				experimentManager.execute();
+				Experiment experiment = experimentManager.execute();
 				
-				long tempoExecFim = System.currentTimeMillis();
-				float tempoExec = (float) (tempoExecFim - tempoExecInicio) / 1000;
-				
-				executionLog.log("Fim da execução "+ count + " ("+tempoExec + " segundos)");
+				executionLog.log("Fim da execução "+ count + " ("+experiment.getElapsedTime() + " segundos)");
 				executionLog.log("----------------------");
 				
 				break;

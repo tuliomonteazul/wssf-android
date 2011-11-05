@@ -12,13 +12,13 @@ import android.content.Context;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.model.Experiment;
 
-public class TxtExperimentDAO implements ExperimentDAO {
+public class TextFileExperimentDAO implements ExperimentDAO {
 	
 	private static final char SEPARATOR = ';';
 	private BufferedWriter writer;
 	
 	
-	public TxtExperimentDAO(Context context) throws FileNotFoundException, IOException {
+	public TextFileExperimentDAO(Context context) throws FileNotFoundException, IOException {
 		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "experiments.txt");
 		boolean fileAlreadyExist = file.isFile();
 		if (!fileAlreadyExist) {

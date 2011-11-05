@@ -344,10 +344,7 @@ class ProxyThread extends Thread implements WSSFProxy {
 			}
 			if (policy != null)	{								
 				policy.setProxy(this);
-				
-//				if (invocationListeners != null) {
-					policy.setInvocationListener(invocationListeners);
-//				}
+				policy.setInvocationListener(invocationListeners);
 				
 				try {
 					

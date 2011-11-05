@@ -75,7 +75,7 @@ public class NoPolicy extends ServerSelectionPolicy implements WSSFInvocationLis
 		this.notify();		
 	}
 
-	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionClosed(WSSFInvocationThread invocationThread) {
 		
 	}
 }

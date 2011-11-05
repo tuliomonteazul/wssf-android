@@ -6,6 +6,5 @@ public interface WSSFInvocationListener {
 	void serverConnectionOpened(WSSFInvocationThread invocationThread);
 	void serverDataReceived(WSSFInvocationThread invocationThread, int qtBytesReaded);
 	void serverExceptionOccurred (WSSFInvocationThread invocationThread, Exception e );
-	// TODO trocar para connection close
-	void serverRequestCanceled(WSSFInvocationThread invocationThread);
+	void serverConnectionClosed(WSSFInvocationThread invocationThread);
 }

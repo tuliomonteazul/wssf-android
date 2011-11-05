@@ -74,7 +74,7 @@ public class SingleExecProgressController implements WSSFInvocationListener {
 	}
 	
 	@Override
-	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionClosed(WSSFInvocationThread invocationThread) {
 		Log.d("progress", "canceled " +invocationThread.toString());
 		
 		int replicaID = invocationThread.getReplicaID();

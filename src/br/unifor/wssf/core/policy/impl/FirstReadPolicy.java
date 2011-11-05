@@ -135,7 +135,7 @@ public class FirstReadPolicy extends ServerSelectionPolicy implements WSSFInvoca
 		
 	}
 	
-	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionClosed(WSSFInvocationThread invocationThread) {
 		
 	}
 	

@@ -142,7 +142,7 @@ public class FirstConnectionPolicy extends ServerSelectionPolicy implements WSSF
 		
 	}
 	
-	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionClosed(WSSFInvocationThread invocationThread) {
 		
 	}
 }

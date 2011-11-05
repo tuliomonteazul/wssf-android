@@ -11,7 +11,7 @@ import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.dao.ExperimentDAO;
-import br.unifor.wssf.experiment.dao.TxtExperimentDAO;
+import br.unifor.wssf.experiment.dao.TextFileExperimentDAO;
 import br.unifor.wssf.experiment.model.Experiment;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
@@ -33,16 +33,11 @@ public class ExperimentManager {
       this.clientTimeout = clientTimeout * 1000;
     }
     
-//    public ExperimentManager(String replicaId, String policyId) throws SecurityException, IOException {
-//		this(replicaId, policyId, null);
-//		
-//	}
-//    
 	public ExperimentManager(String replicaId, String policyId, Context context) throws SecurityException, IOException {
 		this.urlString = getReplicaURLString(replicaId);
 		this.serverSelectionPolicyName = getPolicyName(policyId);
 		this.systemStatus = new SystemStatus(context);
-		this.experimentDAO = new TxtExperimentDAO(context);
+		this.experimentDAO = new TextFileExperimentDAO(context);
 		createExperiment(replicaId, policyId);
 	}
     
@@ -91,7 +86,7 @@ public class ExperimentManager {
 		
 	}
     
-	public void execute(WSSFInvocationListener... invocationListeners) throws Exception{
+	public Experiment execute(WSSFInvocationListener... invocationListeners) throws Exception{
 		
 		Log.d("experiment", "Iniciando proxy na porta 8080...");
 		jProxy = new jProxy(8080,"",0,60, invocationListeners);
@@ -104,7 +99,7 @@ public class ExperimentManager {
 //		if (file.createNewFile()) {
 //			PrintStream ps = new PrintStream(file);
 //		}
-		jProxy.setDebug(1, null);
+		jProxy.setDebug(0, null);
 		jProxy.start();
 		
 		waitForProxyStart();
@@ -130,6 +125,8 @@ public class ExperimentManager {
 		jProxy.sendCloseMessage();
 		
 		waitForProxyClose();
+		
+		return experiment;
 	}
 	
 	private void waitForProxyClose() throws InterruptedException {

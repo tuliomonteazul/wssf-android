@@ -146,7 +146,7 @@ public class ParallelInvocationPolicy extends ServerSelectionPolicy implements W
 		
 	}
 	
-	public synchronized void serverRequestCanceled(WSSFInvocationThread invocationThread) {
+	public synchronized void serverConnectionClosed(WSSFInvocationThread invocationThread) {
 		
 	}
 }

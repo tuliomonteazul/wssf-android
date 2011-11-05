@@ -312,7 +312,7 @@ public class InvocationThread extends WSSFInvocationThread {
 	public void stopInvocation() throws IOException {
 		super.stopInvocation();
 		for (WSSFInvocationListener listener : getInvocationListenerList()) {
-			listener.serverRequestCanceled(this);
+			listener.serverConnectionClosed(this);
 		}
 	};
 
