@@ -1,4 +1,4 @@
-package br.unifor.wssf.view.execution;
+package br.unifor.wssf.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import br.unifor.wssf.R;
 import br.unifor.wssf.view.execution.multiple.MultiExecActivity;
 import br.unifor.wssf.view.execution.single.SingleExecConfigActivity;
 
-public class ExecutionChooseActivity extends Activity {
+public class Main extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
