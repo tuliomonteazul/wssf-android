@@ -1,4 +1,4 @@
-package br.unifor.wssf.view.execution.status;
+package br.unifor.wssf.os;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

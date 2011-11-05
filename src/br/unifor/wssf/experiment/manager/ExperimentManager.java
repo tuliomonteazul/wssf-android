@@ -13,9 +13,9 @@ import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.Experiment;
 import br.unifor.wssf.experiment.dao.ExperimentDAO;
 import br.unifor.wssf.experiment.dao.TextFileExperimentDAO;
+import br.unifor.wssf.os.SystemStatus;
 import br.unifor.wssf.proxy.SimpleHttpClient;
 import br.unifor.wssf.proxy.jProxy;
-import br.unifor.wssf.view.execution.status.SystemStatus;
 
 public class ExperimentManager {
 
