@@ -11,6 +11,10 @@
 # generated GUI files
 *R.java
 
+# generated properties
+project.properties
+
 #folders
 gen
 assets
+bin
