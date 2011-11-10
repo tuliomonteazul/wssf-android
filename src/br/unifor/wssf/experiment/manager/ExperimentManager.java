@@ -22,7 +22,6 @@ public class ExperimentManager {
     private String urlString;
     private String serverSelectionPolicyName;
     public static Experiment experiment;
-//    private static Logger logger2 = Logger.getLogger("experimentLog");
     private int clientTimeout = 60000; // um minuto
     private jProxy jProxy;
     private SystemStatus systemStatus;

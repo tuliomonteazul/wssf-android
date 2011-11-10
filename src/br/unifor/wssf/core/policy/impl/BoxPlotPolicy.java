@@ -40,7 +40,7 @@ public class BoxPlotPolicy extends ServerSelectionPolicy implements WSSFInvocati
 	private int numberOfCallsToWait;
 	private double fator;
 	
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 
 	public BoxPlotPolicy() {
 		this(DEFAULT_NUMBER_CALLS, DEFAULT_FATOR);
@@ -188,7 +188,7 @@ class BoxPlot{
 	private double fator = 1.5;
 	int[] amostraValida = null;//indice da amostra v�lido, segue o padrao [inicio,fim)
 	
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 	
 	public BoxPlot(List<WSSFInvocationThread> dados, double fator){
 		this.dados  = dados;

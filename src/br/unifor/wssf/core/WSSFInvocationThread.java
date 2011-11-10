@@ -21,7 +21,7 @@ public abstract class WSSFInvocationThread extends Thread {
 	private Boolean isRunning = Boolean.TRUE;
 	private List<WSSFInvocationListener> invocationListenerList = new ArrayList<WSSFInvocationListener>();
     
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 	
 	public WSSFInvocationThread(byte[] request) throws MalformedURLException {
 		setRequest(request);

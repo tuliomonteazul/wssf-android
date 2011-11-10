@@ -37,7 +37,7 @@ public class FirstReadPolicy extends ServerSelectionPolicy implements WSSFInvoca
 	List<WSSFInvocationThread> invocationList;
 	List<URL> replicaList;
 	
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 	
 	public synchronized byte[]  invoke(byte[] request) throws Exception {
 		

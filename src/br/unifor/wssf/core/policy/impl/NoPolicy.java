@@ -11,7 +11,7 @@ import br.unifor.wssf.experiment.manager.ExperimentManager;
 public class NoPolicy extends ServerSelectionPolicy implements WSSFInvocationListener{
     
 	private boolean firstRead = true;
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 	private byte[] response;
 	private long startTime;
 	private Exception invokeException;

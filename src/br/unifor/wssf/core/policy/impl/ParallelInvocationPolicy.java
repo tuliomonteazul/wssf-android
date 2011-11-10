@@ -35,7 +35,7 @@ public class ParallelInvocationPolicy extends ServerSelectionPolicy implements W
 	//boolean startOutliersStats = false;//Apenas p/ experimento p/ calibrar pol�tica boxplot
 	//private int numberOfCallsToWait = 1;//Apenas p/ experimento p/ calibrar pol�tica boxplot
 	//StringBuffer sb = new StringBuffer();//Apenas p/ experimento p/ calibrar pol�tica boxplot
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 	
 	public synchronized byte[]  invoke(byte[] request) throws Exception {
 

@@ -38,7 +38,7 @@ public class FirstConnectionPolicy extends ServerSelectionPolicy implements WSSF
 	List<WSSFInvocationThread> invocationList ;//= new ArrayList<WSSFInvocationThread>();
 	List<URL> replicaList;
 	
-	private Logger logger = Logger.getLogger("experimentLog");
+	private Logger logger = Logger.getLogger("invocation");
 	
 	public synchronized byte[]  invoke(byte[] request) throws Exception {
 		
