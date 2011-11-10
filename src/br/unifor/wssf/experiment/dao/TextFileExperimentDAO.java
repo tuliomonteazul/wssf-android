@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
-import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.Experiment;
+import br.unifor.wssf.os.Constants;
 
 public class TextFileExperimentDAO implements ExperimentDAO {
 	
@@ -19,7 +19,7 @@ public class TextFileExperimentDAO implements ExperimentDAO {
 	
 	
 	public TextFileExperimentDAO(Context context) throws FileNotFoundException, IOException {
-		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "experiments.txt");
+		File file = new File(Constants.FILES_PATH + "experiments.txt");
 		boolean fileAlreadyExist = file.isFile();
 		if (!fileAlreadyExist) {
 			file.createNewFile();

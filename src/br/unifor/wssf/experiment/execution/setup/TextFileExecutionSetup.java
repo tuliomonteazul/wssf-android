@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
-import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.execution.Execution;
+import br.unifor.wssf.os.Constants;
 
 public class TextFileExecutionSetup implements ExecutionSetup {
 	private static final String SETUP_FILE = "execution-setup";
@@ -43,7 +43,7 @@ public class TextFileExecutionSetup implements ExecutionSetup {
 	}
 	
 	public List<Execution> readSetupFile() throws IOException {
-		final File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + SETUP_FILE);
+		final File file = new File(Constants.FILES_PATH + SETUP_FILE);
 		final BufferedReader reader = new BufferedReader(new FileReader(file));
 		
 		String line = reader.readLine();
