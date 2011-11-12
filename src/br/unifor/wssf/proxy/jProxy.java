@@ -221,7 +221,6 @@ public class jProxy extends Thread {
 			// close the open server socket
 			server.close();
 			
-			InvocationThreadFactory.getInstance().closeAll();
 		} catch (Exception e) {
 			if (debugLevel > 0)
 				Log.e("proxy", e.getMessage(), e);
@@ -635,7 +634,7 @@ class ProxyThread extends Thread implements WSSFProxy {
 
 	public WSSFInvocationThread createWSSFInvocationThread(byte[] request)
 			throws MalformedURLException {
-		InvocationThread invocationThread = InvocationThreadFactory.getInstance().createInvocationThread(request); 
+		InvocationThread invocationThread = new InvocationThread(request); 
 		invocationThread.setTimeout(socketTimeout);
 		invocationThread.setDebug(debugLevel, debugOut);
 		return invocationThread;

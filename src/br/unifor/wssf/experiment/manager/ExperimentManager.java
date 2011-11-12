@@ -117,8 +117,11 @@ public class ExperimentManager {
 		experiment.setAvailableMemory(systemStatus.getMemoryStatus().getAvailable());
 		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus() + ". Memória: "+experiment.getAvailableMemory());
 		
+		
+		Log.d("experiment", "Threads ativas " + Thread.activeCount());
+		
 		experimentDAO.insertExperiment(experiment);
-		experimentDAO.commit();
+//		experimentDAO.commit();
 		
 		jProxy.sendCloseMessage();
 		
