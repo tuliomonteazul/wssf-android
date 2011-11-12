@@ -114,7 +114,7 @@ public class ExperimentManager {
 		experiment.setRequestStatus(message); //TODO implementar requestStatus
 		experiment.setDataReceived(c.getResponseLength());
 		experiment.setFinalBattery(systemStatus.getBatteryStatus().getLevel());
-		experiment.setAvailableMemory(systemStatus.getMemoryStatus().getAvailableMemory());
+		experiment.setAvailableMemory(systemStatus.getMemoryStatus().getAvailable());
 		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus() + ". Memória: "+experiment.getAvailableMemory());
 		
 		experimentDAO.insertExperiment(experiment);

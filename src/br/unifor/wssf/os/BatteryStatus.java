@@ -14,7 +14,7 @@ public class BatteryStatus {
 		this.context = context;
 	}
 
-	public float getLevel() {
+	public int getLevel() {
 		
 		Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 		
