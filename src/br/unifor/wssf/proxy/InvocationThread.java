@@ -299,7 +299,6 @@ public class InvocationThread extends WSSFInvocationThread {
 	@Override
 	public void closeConnection() throws IOException {
 		if (server != null && !server.isClosed()){
-//			serverIn.close();
 			try {
 				server.shutdownInput();
 			} catch (Exception e) {
