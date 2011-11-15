@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import br.unifor.wssf.R;
-import br.unifor.wssf.view.execution.multiple.MultiExecActivity;
-import br.unifor.wssf.view.execution.single.SingleExecConfigActivity;
+import br.unifor.wssf.view.execution.multiple.MultipleActivity;
+import br.unifor.wssf.view.execution.single.SingleConfigActivity;
 
 public class Main extends Activity {
 
@@ -32,7 +32,7 @@ public class Main extends Activity {
 	}
 	
 	private void callSingleExecConfig() {
-		Intent intent = new Intent(this, SingleExecConfigActivity.class);
+		Intent intent = new Intent(this, SingleConfigActivity.class);
 		startActivity(intent);
 	}
 	
@@ -47,7 +47,7 @@ public class Main extends Activity {
 	}
 
 	protected void callMultipleExecConfig() {
-		Intent intent = new Intent(this, MultiExecActivity.class);
+		Intent intent = new Intent(this, MultipleActivity.class);
 		startActivity(intent);
 	}
 }

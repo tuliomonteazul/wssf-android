@@ -17,7 +17,7 @@ import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.execution.Execution;
 
-public class SingleExecConfigActivity extends Activity {
+public class SingleConfigActivity extends Activity {
 	
 	private ArrayList<String> listReplicas;
 	
@@ -87,7 +87,7 @@ public class SingleExecConfigActivity extends Activity {
 	}
 
 	private void callProgressActivity() {
-		Intent intent = new Intent(this, SingleExecProgressActivity.class);
+		Intent intent = new Intent(this, SingleProgressActivity.class);
 		
 		Bundle params = new Bundle();
 		params.putStringArrayList("listReplicas", listReplicas);

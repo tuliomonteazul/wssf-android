@@ -11,7 +11,7 @@ import br.unifor.wssf.R;
 import br.unifor.wssf.experiment.executor.MultipleExecutor;
 import br.unifor.wssf.view.widget.LogTextView;
 
-public class MultiExecActivity extends Activity {
+public class MultipleActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

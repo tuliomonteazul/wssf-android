@@ -14,10 +14,10 @@ import br.unifor.wssf.R;
 import br.unifor.wssf.experiment.execution.Execution;
 import br.unifor.wssf.experiment.executor.SingleExecutor;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
-import br.unifor.wssf.view.execution.single.controller.SingleExecProgressController;
+import br.unifor.wssf.view.execution.single.controller.SingleProgressController;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
-public class SingleExecProgressActivity extends Activity {
+public class SingleProgressActivity extends Activity {
 	
 	private List<ReplicaProgressBar> listProgressBar = new ArrayList<ReplicaProgressBar>();
 	private ExperimentManager experimentManager;
@@ -59,9 +59,9 @@ public class SingleExecProgressActivity extends Activity {
 	private void doExperiment(Bundle params) {
 
 		final Execution execution = (Execution) params.getSerializable("execution");
-		final SingleExecProgressController singleExecProgressController = new SingleExecProgressController(this);
+		final SingleProgressController singleProgressController = new SingleProgressController(this);
 
-		SingleExecutor singleExecutor = new SingleExecutor(execution, this, singleExecProgressController);
+		SingleExecutor singleExecutor = new SingleExecutor(execution, this, singleProgressController);
 		singleExecutor.start();
 		
 	}

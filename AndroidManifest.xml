@@ -15,8 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 		</activity>
-        <activity android:name=".view.execution.single.SingleExecConfigActivity"></activity>
-		<activity android:name=".view.execution.single.SingleExecProgressActivity"></activity>
-		<activity android:name=".view.execution.multiple.MultiExecActivity"></activity>
+        <activity android:name=".view.execution.single.SingleConfigActivity"></activity>
+		<activity android:name=".view.execution.single.SingleProgressActivity"></activity>
+		<activity android:name=".view.execution.multiple.MultipleActivity"></activity>
     </application>
 </manifest>

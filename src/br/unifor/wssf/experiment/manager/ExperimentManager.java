@@ -121,7 +121,7 @@ public class ExperimentManager {
 		Log.d("experiment", "Threads ativas " + Thread.activeCount());
 		
 		experimentDAO.insertExperiment(experiment);
-//		experimentDAO.commit();
+		experimentDAO.commit();
 		
 		jProxy.sendCloseMessage();
 		

@@ -3,14 +3,14 @@ package br.unifor.wssf.view.execution.single.controller;
 import android.util.Log;
 import br.unifor.wssf.core.WSSFInvocationListener;
 import br.unifor.wssf.core.WSSFInvocationThread;
-import br.unifor.wssf.view.execution.single.SingleExecProgressActivity;
+import br.unifor.wssf.view.execution.single.SingleProgressActivity;
 import br.unifor.wssf.view.widget.ReplicaProgressBar;
 
-public class SingleExecProgressController implements WSSFInvocationListener {
+public class SingleProgressController implements WSSFInvocationListener {
 	
-	private SingleExecProgressActivity activity;
+	private SingleProgressActivity activity;
 	
-	public SingleExecProgressController(final SingleExecProgressActivity activity) {
+	public SingleProgressController(final SingleProgressActivity activity) {
 		this.activity =  activity;
 	}
 
