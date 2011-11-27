@@ -14,14 +14,9 @@ public class Experiment {
 	private String selectedServer;
 	private Integer firstConnectionTime = new Integer(0);
 	private Integer firstReadTime = new Integer(0);
-	private Integer startBattery;
-	private Integer finalBattery;
-	private Long availableMemory;
+	private Float batteryLevel;
+	private Float allocatedMemory;
 	
-	// TODO adicionar consumo de memoria
-	
-	//private StringBuffer details;
-
 	public Integer getFirstConnectionTime() {
 		return firstConnectionTime;
 	}
@@ -128,33 +123,35 @@ public class Experiment {
 		return sb.toString();
 	}
 
-	public Integer getStartBattery() {
-		return startBattery;
+
+	/**
+	 * @return the batteryLevel
+	 */
+	public Float getBatteryLevel() {
+		return batteryLevel;
 	}
 
-	public void setStartBattery(Integer startBattery) {
-		this.startBattery = startBattery;
+	/**
+	 * @param batteryLevel the batteryLevel to set
+	 */
+	public void setBatteryLevel(Float batteryLevel) {
+		this.batteryLevel = batteryLevel;
 	}
 
-	public Integer getFinalBattery() {
-		return finalBattery;
+	/**
+	 * @return the allocatedMemory
+	 */
+	public Float getAllocatedMemory() {
+		return allocatedMemory;
 	}
 
-	public void setFinalBattery(Integer finalBattery) {
-		this.finalBattery = finalBattery;
+	/**
+	 * @param allocatedMemory the allocatedMemory to set
+	 */
+	public void setAllocatedMemory(Float allocatedMemory) {
+		this.allocatedMemory = allocatedMemory;
 	}
 
-	public Integer getBatteryUsage() {
-		return finalBattery - startBattery;
-	}
-
-	public Long getAvailableMemory() {
-		return availableMemory;
-	}
-
-	public void setAvailableMemory(Long availableMemory) {
-		this.availableMemory = availableMemory;
-	}
 
 	
 }

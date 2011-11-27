@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class TextFileExperimentDAO implements ExperimentDAO {
 	
 	private static final char SEPARATOR = ';';
 	private BufferedWriter writer;
-	
+	private DecimalFormat decimalFormat = new DecimalFormat("###.##");
 	
 	public TextFileExperimentDAO(Context context) throws FileNotFoundException, IOException {
 		File file = new File(Constants.FILES_PATH + "experiments.txt");
@@ -58,7 +59,7 @@ public class TextFileExperimentDAO implements ExperimentDAO {
     	buffer.append(SEPARATOR);
     	buffer.append("batteryUsage");
     	buffer.append(SEPARATOR);
-    	buffer.append("memoryAvailable");
+    	buffer.append("memoryAllocated");
     	
     	write(buffer.toString());
 	}
@@ -94,9 +95,9 @@ public class TextFileExperimentDAO implements ExperimentDAO {
 		buffer.append(SEPARATOR);
 		buffer.append(e.getFirstReadTime() == null ? 0 : e.getFirstReadTime());
 		buffer.append(SEPARATOR);
-		buffer.append(e.getBatteryUsage());
+		buffer.append(e.getBatteryLevel());
 		buffer.append(SEPARATOR);
-		buffer.append(e.getAvailableMemory());
+		buffer.append(decimalFormat.format(e.getAllocatedMemory()));
 		
 		write(buffer.toString());
 	}

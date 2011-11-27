@@ -47,7 +47,6 @@ public class ExperimentManager {
 		experiment.setTime(new Date(currentTime));
 		experiment.setRequestedURL(urlString);
 		experiment.setPolicyName(serverSelectionPolicyName);
-		experiment.setStartBattery(systemStatus.getBatteryStatus().getLevel());
 	}
 
 	private String getReplicaURLString(String replicaId) throws IOException{
@@ -113,9 +112,12 @@ public class ExperimentManager {
 		experiment.setElapsedTime(elapsedTime);
 		experiment.setRequestStatus(message); //TODO implementar requestStatus
 		experiment.setDataReceived(c.getResponseLength());
-		experiment.setFinalBattery(systemStatus.getBatteryStatus().getLevel());
-		experiment.setAvailableMemory(systemStatus.getMemoryStatus().getAvailable());
-		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus() + ". Memória: "+experiment.getAvailableMemory());
+		experiment.setBatteryLevel(systemStatus.getBatteryStatus().getLevel());
+		experiment.setAllocatedMemory(systemStatus.getMemoryStatus().getAllocated());
+		Log.d("experiment", ""+experiment.getAllocatedMemory());
+		Log.d("experiment", ""+experiment.getBatteryLevel());
+		
+		Log.d("experiment", "Fim do Experimento. Status: "+experiment.getRequestStatus() + ". Memória: "+experiment.getAllocatedMemory());
 		
 		
 		Log.d("experiment", "Threads ativas " + Thread.activeCount());

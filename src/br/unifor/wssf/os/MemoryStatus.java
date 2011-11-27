@@ -2,27 +2,24 @@ package br.unifor.wssf.os;
 
 import java.util.StringTokenizer;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.MemoryInfo;
-import android.content.Context;
+import android.os.Debug;
+import android.util.Log;
 
 public class MemoryStatus {
 	
-	private Context context;
-
-	public MemoryStatus(Context context) {
-		this.context = context;
-	}
-	
-	public long getAvailable() {
-		MemoryInfo mi = new MemoryInfo();
-		ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-		activityManager.getMemoryInfo(mi);
+	public float getAllocated() {
+		Debug.MemoryInfo memoryInfo = new Debug.MemoryInfo();
+		Debug.getMemoryInfo(memoryInfo);
 		
-		// convert to kbs
-		long availableMegs = mi.availMem / 1048576L;
-
-		return availableMegs;
+		final float totalPrivate = memoryInfo.getTotalPrivateDirty() / 1024f;
+		final float totalPss = memoryInfo.getTotalPss() / 1024f;
+		final float totalShared = memoryInfo.getTotalSharedDirty() / 1024f;
+		
+		Log.d("memory", "--------------------");
+		Log.d("memory", "getTotalPrivateDirty "+totalPrivate);
+		Log.d("memory", "getTotalPss "+totalPss);
+		Log.d("memory", "getTotalSharedDirty "+totalShared);
+		return totalPss;
 	}
 	
 	

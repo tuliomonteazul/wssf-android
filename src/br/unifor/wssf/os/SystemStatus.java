@@ -10,7 +10,7 @@ public class SystemStatus {
 	public SystemStatus(Context context) {
 		super();
 		batteryStatus = new BatteryStatus(context);
-		memoryStatus = new MemoryStatus(context);
+		memoryStatus = new MemoryStatus();
 	}
 	
 	public BatteryStatus getBatteryStatus() {

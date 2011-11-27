@@ -65,7 +65,7 @@ public class MultipleExecutor extends Thread {
 	private void tryToExecute(final int totalExecucoes, int count,
 			Execution execution) {
 		
-		int tentativa = 1;
+		int tentativa = 0;
 		while (tentativa < TENTATIVAS) {
 			try {
 				executionLog.log("Execução "+ count + "/" + totalExecucoes);
