@@ -3,11 +3,13 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#1F242A"
+    android:gravity="center"
     android:weightSum="1">
-	
+    
 	<Button android:text="Execução Única" android:id="@+id/btSingleExec"
-		android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
+		android:layout_width="80pt" android:layout_height="40pt" android:layout_marginBottom="10pt"></Button>
 	<Button android:text="Multiplas Execuções" android:id="@+id/btMultiExec"
-		android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
+		android:layout_width="80pt" android:layout_height="40pt"></Button>
 </LinearLayout>
 

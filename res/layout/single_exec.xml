@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1">
+    android:background="#37414A"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="10dip"
+    android:weightSum="1" >
+    
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium"
+		android:id="@+id/lbReplica"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="#DDDDDD"
+		android:text="Réplica:"></TextView>
 	<Spinner android:layout_height="wrap_content" android:id="@+id/comboReplicas"
-		android:drawSelectorOnTop="true"
-		android:layout_width="match_parent"></Spinner>
+		android:layout_width="wrap_content"></Spinner>
+
+    <TextView android:textAppearance="?android:attr/textAppearanceMedium"
+		android:id="@+id/lbPolitica"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="#DDDDDD"
+		android:text="Política:"></TextView>
 	<Spinner android:layout_height="wrap_content" android:id="@+id/comboPolicys"
 		android:layout_width="match_parent"></Spinner>
 		
 	<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" 
-		android:id="@+id/tableLayout1">
-		<TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"  
-			android:layout_height="wrap_content">
+		android:id="@+id/tbBestPartial" android:background="#1F242A" android:visibility="invisible">
+		<TableRow android:id="@+id/tableRow1" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:gravity="center_horizontal">
 	
 			<TextView android:textAppearance="?android:attr/textAppearanceMedium"
-			android:id="@+id/textView1" android:layout_height="wrap_content" 
-			android:text="Calls to wait" android:layout_width="wrap_content"></TextView>
+			android:id="@+id/textView1" android:layout_height="wrap_content" android:textColor="#DDDDDD" 
+			android:text="% min" android:layout_width="wrap_content"></TextView>
 		
 			<TextView android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_marginLeft="20px" 
+				android:layout_marginLeft="20px" android:textColor="#DDDDDD"
 				android:id="@+id/textView2" android:layout_height="wrap_content" 
-				android:text="Fator" android:layout_width="wrap_content"></TextView>
+				android:text="fator" android:layout_width="wrap_content"></TextView>
 	
 
 		</TableRow>
-		<TableRow android:id="@+id/tableRow2" android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+		<TableRow android:id="@+id/tableRow2" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:gravity="center_horizontal">
 			
 			<EditText android:layout_height="wrap_content" android:id="@+id/calls"
 				android:layout_width="match_parent" android:text="20">
@@ -41,7 +57,20 @@
 		</TableRow>
 	</TableLayout>
 	
-	<Button android:text="Iniciar Experimento" android:id="@+id/btExperimento"
-		android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+		<Button
+		    android:id="@+id/btExperimento"
+		    android:layout_width="match_parent"
+		    android:layout_height="25pt"
+		    android:text="Iniciar Experimento" />
+        
+    </LinearLayout>
+    
 </LinearLayout>
+
 

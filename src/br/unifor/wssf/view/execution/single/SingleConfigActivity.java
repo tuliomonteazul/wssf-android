@@ -9,10 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import br.unifor.wssf.R;
 import br.unifor.wssf.core.replicas.TextFileReplicaDAO;
 import br.unifor.wssf.experiment.execution.Execution;
@@ -47,7 +50,7 @@ public class SingleConfigActivity extends Activity {
 		listReplicas = getListReplicas();
 		
 		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listReplicas);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listReplicas);
 		comboReplicas.setAdapter(adapter);
 	}
 
@@ -71,8 +74,26 @@ public class SingleConfigActivity extends Activity {
 		List<String> listPolicys = getListPolicys();
 		
 		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listPolicys);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPolicys);
 		comboPolicys.setAdapter(adapter);
+		
+		comboPolicys.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int position, long id) {
+				TableLayout tbBestPartial = (TableLayout) findViewById(R.id.tbBestPartial);
+				if (position == 4) {
+					tbBestPartial.setVisibility(View.VISIBLE);
+				} else {
+					tbBestPartial.setVisibility(View.INVISIBLE);
+				}
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	
@@ -82,7 +103,7 @@ public class SingleConfigActivity extends Activity {
 		listPolicys.add("P - Parallel");
 		listPolicys.add("FC - FirstConnectionPolicy");
 		listPolicys.add("FR - FirstReadPolicy");
-		listPolicys.add("BP -  BoxPlotPolicy");
+		listPolicys.add("BP -  BestPartialPolicy");
 		return listPolicys;
 	}
 
