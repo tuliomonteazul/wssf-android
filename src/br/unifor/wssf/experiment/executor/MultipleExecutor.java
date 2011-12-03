@@ -10,6 +10,7 @@ import br.unifor.wssf.experiment.execution.log.ExecutionLog;
 import br.unifor.wssf.experiment.execution.setup.ExecutionSetup;
 import br.unifor.wssf.experiment.execution.setup.TextFileExecutionSetup;
 import br.unifor.wssf.experiment.manager.ExperimentManager;
+import br.unifor.wssf.os.SoundControl;
 
 public class MultipleExecutor extends Thread {
 	
@@ -26,6 +27,7 @@ public class MultipleExecutor extends Thread {
 	@Override
 	public void run() {
 		executeExperiments();
+		SoundControl.getInstance(context).beep();
 	}
 	
 	public void executeExperiments() {

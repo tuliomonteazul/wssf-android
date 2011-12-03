@@ -20,7 +20,7 @@ public class BatteryStatus {
 		
 		final int intLevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
 		final int intScale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-
+		
 		return (float) ((intLevel * 100) / intScale);
 	}
 	
