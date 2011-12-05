@@ -26,11 +26,6 @@ public class SingleProgressController implements WSSFInvocationListener {
 		progressBar.setText("100%");
 		progressBar.setProgress(100);
 		
-//		try {
-//			invocationThread.stopInvocation();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 	}
 
 	@Override
@@ -40,7 +35,7 @@ public class SingleProgressController implements WSSFInvocationListener {
 		int replicaID = invocationThread.getReplicaID();
 		ReplicaProgressBar progressBar = (ReplicaProgressBar) activity.getProgressBar(replicaID);
 		progressBar.setColor(R.drawable.blue_progress);
-		progressBar.setText("conectado");
+		progressBar.setText("0%");
 		progressBar.setProgress(100);
 	}
 
@@ -70,7 +65,6 @@ public class SingleProgressController implements WSSFInvocationListener {
 		int replicaID = invocationThread.getReplicaID();
 		ReplicaProgressBar progressBar = (ReplicaProgressBar) activity.getProgressBar(replicaID);
 		progressBar.setColor(R.drawable.red_progress);
-		progressBar.setText("erro");
 		progressBar.setProgress(100);
 	}
 	
@@ -80,13 +74,12 @@ public class SingleProgressController implements WSSFInvocationListener {
 		
 		int replicaID = invocationThread.getReplicaID();
 		ReplicaProgressBar progressBar = (ReplicaProgressBar) activity.getProgressBar(replicaID);
-		progressBar.setText("cancelada");
 		if (progressBar.getProgress() == 100) {
 			progressBar.setProgress(0);
 		}
 		progressBar.setColor(R.drawable.gray_progress);
 		progressBar.setProgress(progressBar.getProgress()+1);
-//		progressBar.refreshDrawableState();
+		progressBar.setProgress(progressBar.getProgress()-1);
 		
 	}
 

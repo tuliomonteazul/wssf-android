@@ -26,7 +26,7 @@
 	<Spinner android:layout_height="wrap_content" android:id="@+id/comboPolicys"
 		android:layout_width="match_parent"></Spinner>
 		
-	<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" 
+	<TableLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:padding="5pt"
 		android:id="@+id/tbBestPartial" android:background="#1F242A" android:visibility="invisible">
 		<TableRow android:id="@+id/tableRow1" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:gravity="center_horizontal">

@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:id="@+id/layoutPrincipal"
+    android:id="@+id/layoutPrincipal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="2">
-
+    android:background="#37414A"
+    android:orientation="vertical"
+    android:padding="10dip"
+    android:weightSum="2" >
+    
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/panelBarras">
+        
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:id="@+id/detalhesPolitica" android:layout_marginBottom="5pt"
+            android:textColor="#FFEEEEEE" android:textSize="16sp"
+            />
+    </LinearLayout>
+    
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" android:gravity="bottom">
+	            
+	    <TableLayout android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:id="@+id/panelLegenda" android:background="#1F242A" android:padding="5pt">
+			<TableRow android:layout_width="fill_parent" 
+				android:layout_height="fill_parent" android:gravity="center_horizontal">
+			    <View android:background="@drawable/legenda_conectado"
+			        android:layout_width="10pt" android:layout_height="10pt"/>
+				<TextView android:layout_height="wrap_content" android:textColor="#DDDDDD" 
+				    android:layout_marginLeft="2pt"
+				android:text="conectado" android:layout_width="wrap_content"></TextView>
+				
+			    <View android:background="@drawable/legenda_recebendo" android:layout_marginLeft="10pt"
+			        android:layout_width="10pt" android:layout_height="10pt"/>
+				<TextView android:layout_height="wrap_content" android:textColor="#DDDDDD" 
+				    android:layout_marginLeft="2pt"
+				android:text="recebendo dados" android:layout_width="wrap_content"></TextView>
+	
+			</TableRow>
+			
+			<TableRow android:layout_width="fill_parent" android:layout_marginTop="5pt"
+				android:layout_height="fill_parent" android:gravity="center_horizontal">
+			    <View android:background="@drawable/legenda_cancelado"
+			        android:layout_width="10pt" android:layout_height="10pt"/>
+				<TextView android:layout_height="wrap_content" android:textColor="#DDDDDD" 
+				    android:layout_marginLeft="2pt"
+				android:text="cancelado" android:layout_width="wrap_content"></TextView>
+				
+			    <View android:background="@drawable/legenda_erro" android:layout_marginLeft="10pt"
+			        android:layout_width="10pt" android:layout_height="10pt"/>
+				<TextView android:layout_height="wrap_content" android:textColor="#DDDDDD" 
+				    android:layout_marginLeft="2pt"
+				android:text="erro" android:layout_width="wrap_content"></TextView>
+	
+			</TableRow>
+			
+	    </TableLayout>
+	    
+    </LinearLayout>
 </LinearLayout>
 
