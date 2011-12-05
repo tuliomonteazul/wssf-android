@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="greenStart">#ff33dd44</color>
+    <color name="greenMid">#ff0A8815</color>
+    <color name="greenEnd">#ff1da130</color>
+    <color name="blueStart">#ff3333DD</color>
+    <color name="blueMid">#ff0E0A88</color>
+    <color name="blueEnd">#ff2D1DA1</color>
+    <color name="grayStart">#ffB4B4B4</color>
+    <color name="grayMid">#ff8D8D8D</color>
+    <color name="grayEnd">#ffA7A7A7</color>
+    <color name="redStart">#ffDD4133</color>
+    <color name="redMid">#ff88380A</color>
+    <color name="redEnd">#ffA11F1D</color>
+</resources>

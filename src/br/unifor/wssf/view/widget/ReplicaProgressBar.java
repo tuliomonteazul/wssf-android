@@ -3,19 +3,23 @@ package br.unifor.wssf.view.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Shader;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.view.Gravity;
 import android.widget.ProgressBar;
+import br.unifor.wssf.R;
 
 public class ReplicaProgressBar extends ProgressBar {
 
 	private String text;  
     private Paint textPaint; 
-	
+	private int actualProgressBar;
+    
 	private ShapeDrawable pgDrawable;
 	private static final String START_TEXT = "conectando...";
 	private static final int START_COLOR = Color.GRAY;
@@ -34,12 +38,16 @@ public class ReplicaProgressBar extends ProgressBar {
 		pgDrawable = new ShapeDrawable(new RoundRectShape(roundedCorners, null, null));
 		pgDrawable.getPaint().setColor(START_COLOR);
 		ClipDrawable progress = new ClipDrawable(pgDrawable, Gravity.LEFT, ClipDrawable.HORIZONTAL);
-		this.setProgressDrawable(progress);
-		this.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.progress_horizontal));
+		
+		this.setProgressDrawable(getResources().getDrawable(R.drawable.blue_progress)); 
+		
+//		this.setProgressDrawable(progress);
+//		this.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.progress_horizontal));
 		this.setMax(100);
 		
 		text = START_TEXT;  
         textPaint = new Paint();  
+        textPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.BLACK);  
         textPaint.setTextSize(18);  
 	}
@@ -66,7 +74,16 @@ public class ReplicaProgressBar extends ProgressBar {
 	}
 	
 	public void setColor(int color) {
-		pgDrawable.getPaint().setColor(color);
+		
+		if (color != actualProgressBar && actualProgressBar != R.drawable.gray_progress) {
+			actualProgressBar = color;
+			Rect bounds = this.getProgressDrawable().getBounds();
+			this.setProgressDrawable(getResources().getDrawable(color));
+			this.getProgressDrawable().setBounds(bounds);
+			postInvalidate();
+			drawableStateChanged();
+			refreshDrawableState();
+		}
 	}
 	
 }
