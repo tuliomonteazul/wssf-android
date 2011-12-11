@@ -28,23 +28,6 @@ public class SingleProgressActivity extends Activity {
 		setContentView(R.layout.single_exec_progress);
 		
 		
-//		SimpleExpandableListAdapter expListAdapter = new SimpleExpandableListAdapter(
-//				this, createGroupList(), // Creating group List.
-//				R.layout.group_row, // Group item layout XML.
-//				new String[] { "Group Item" }, // the key of group item.
-//				new int[] { R.id.row_name }, // ID of each group item.-Data
-//												// under the key goes into this
-//												// TextView.
-//				createChildList(), // childData describes second-level entries.
-//				R.layout.child_row, // Layout for sub-level entries(second
-//									// level).
-//				new String[] { "Sub Item" }, // Keys in childData maps to
-//												// display.
-//				new int[] { R.id.grp_child } // Data under the keys above go
-//												// into these TextViews.
-//		);
-//		setListAdapter(expListAdapter);
-		
 		Intent intent = getIntent();
 		if (intent != null) {
 			Bundle params = intent.getExtras();

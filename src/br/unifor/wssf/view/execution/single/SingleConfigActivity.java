@@ -51,6 +51,7 @@ public class SingleConfigActivity extends Activity {
 		
 		final Spinner comboReplicas = (Spinner) findViewById(R.id.comboReplicas);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listReplicas);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		comboReplicas.setAdapter(adapter);
 	}
 
@@ -75,6 +76,7 @@ public class SingleConfigActivity extends Activity {
 		
 		final Spinner comboPolicys = (Spinner) findViewById(R.id.comboPolicys);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listPolicys);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		comboPolicys.setAdapter(adapter);
 		
 		comboPolicys.setOnItemSelectedListener(new OnItemSelectedListener() {
