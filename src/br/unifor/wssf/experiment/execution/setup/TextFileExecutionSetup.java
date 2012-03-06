@@ -9,7 +9,7 @@ import java.util.List;
 
 import android.util.Log;
 import br.unifor.wssf.experiment.execution.Execution;
-import br.unifor.wssf.os.Constants;
+import br.unifor.wssf.os.DataStorage;
 
 public class TextFileExecutionSetup implements ExecutionSetup {
 	private static final String SETUP_FILE = "execution-setup";
@@ -43,7 +43,8 @@ public class TextFileExecutionSetup implements ExecutionSetup {
 	}
 	
 	public List<Execution> readSetupFile() throws IOException {
-		final File file = new File(Constants.FILES_PATH + SETUP_FILE);
+		final DataStorage dataStorage = new DataStorage();
+		final File file = dataStorage.getFile(SETUP_FILE);
 		final BufferedReader reader = new BufferedReader(new FileReader(file));
 		
 		String line = reader.readLine();

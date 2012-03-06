@@ -11,7 +11,7 @@ import java.util.List;
 
 import android.content.Context;
 import br.unifor.wssf.experiment.Experiment;
-import br.unifor.wssf.os.Constants;
+import br.unifor.wssf.os.DataStorage;
 
 public class TextFileExperimentDAO implements ExperimentDAO {
 	
@@ -20,13 +20,12 @@ public class TextFileExperimentDAO implements ExperimentDAO {
 	private DecimalFormat decimalFormat = new DecimalFormat("###.##");
 	
 	public TextFileExperimentDAO(Context context) throws FileNotFoundException, IOException {
-		File file = new File(Constants.FILES_PATH + "experiments.txt");
+		final DataStorage dataStorage = new DataStorage();
+		File file = dataStorage.getFile("experiments.txt");
 		boolean fileAlreadyExist = file.isFile();
 		if (!fileAlreadyExist) {
 			file.createNewFile();
 		}
-//		FileOutputStream output = context.openFileOutput("experiments.txt", Context.MODE_WORLD_READABLE);
-		
 		
 		writer = new BufferedWriter(new FileWriter(file, true));
 		

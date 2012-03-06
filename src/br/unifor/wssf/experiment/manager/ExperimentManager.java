@@ -26,6 +26,7 @@ public class ExperimentManager {
     private jProxy jProxy;
     private SystemStatus systemStatus;
     private ExperimentDAO experimentDAO;
+    private TextFileReplicaDAO replicaDAO;
     
     public ExperimentManager(String replicaId, String policyId, int clientTimeout, Context context) throws SecurityException, IOException {
       this(replicaId,policyId, context);
@@ -33,6 +34,7 @@ public class ExperimentManager {
     }
     
 	public ExperimentManager(String replicaId, String policyId, Context context) throws SecurityException, IOException {
+		this.replicaDAO = TextFileReplicaDAO.getInstance();
 		this.urlString = getReplicaURLString(replicaId);
 		this.serverSelectionPolicyName = getPolicyName(policyId);
 		this.systemStatus = new SystemStatus(context);
@@ -53,7 +55,7 @@ public class ExperimentManager {
 		
 		int sequence = Integer.parseInt(replicaId.substring(1));
 		
-		List<String> l = TextFileReplicaDAO.getInstance().getReplicaListString();
+		List<String> l = replicaDAO.getReplicaListString();
 		
 		int count = 1;
 		
@@ -88,14 +90,6 @@ public class ExperimentManager {
 		Log.d("experiment", "Iniciando proxy na porta 8080...");
 		jProxy = new jProxy(8080,"",0,60, invocationListeners);
 		
-//		File file = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/log_proxy_"+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(currentTime)) +".txt");
-//		File logDir = new File(TextFileReplicaDAO.REPLICA_FILE_PATH + "/log/");
-//		if (!logDir.isDirectory()) {
-//			logDir.mkdir();
-//		}
-//		if (file.createNewFile()) {
-//			PrintStream ps = new PrintStream(file);
-//		}
 		jProxy.setDebug(0, null);
 		jProxy.start();
 		
