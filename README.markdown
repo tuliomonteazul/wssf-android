@@ -21,11 +21,11 @@ http://maketecheasier.com/install-applications-without-the-market/2011/01/28
 
 O aplicativo possui 2 tipos de execução: simples e múltipla. Para ambos é necessário ter o arquivo `replicas.txt` no diretório `/mnt/sdcard/WSSF/`. Para facilitar o uso, esse diretório será criado automaticamente pela aplicação, assim como um arquivo de réplicas padrão com o seguinte conteúdo:
 
- > http://mozilla.mirror.rafal.ca/addons/71/enigmail-0.95.1-tb+sm.xpi
- > http://gd.tuwien.ac.at/infosys/browsers/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
- > http://mozilla.phphosts.org/addons/71/enigmail-0.95.1-tb+sm.xpi
- > http://mozilla.saix.net/addons/71/enigmail-0.95.1-tb+sm.xpi
- > http://pv-mirror02.mozilla.org/pub/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
+	http://mozilla.mirror.rafal.ca/addons/71/enigmail-0.95.1-tb+sm.xpi
+	http://gd.tuwien.ac.at/infosys/browsers/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
+	http://mozilla.phphosts.org/addons/71/enigmail-0.95.1-tb+sm.xpi
+	http://mozilla.saix.net/addons/71/enigmail-0.95.1-tb+sm.xpi
+	http://pv-mirror02.mozilla.org/pub/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
 
 
 Esse arquivo padrão possui réplicas de um arquivo de 1 mb.
