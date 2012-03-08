@@ -39,13 +39,12 @@ O arquivo de configuração deverá possuir o nome `execution-setup` e estar gua
  
 Segue um exemplo desse arquivo:
 
-<code>
-repeat 5
-R1 NO
-R1 P
-R1 FC
-R1 FR
-R1 BP[20,0.5]
-R1 BP[20,1]
-R1 BP[20,1.5]
-</code>
+	repeat 5
+	R1 NO
+	R1 P
+	R1 FC
+	R1 FR
+	R1 BP[20,0.5]
+	R1 BP[20,1]
+	R1 BP[20,1.5]
+
