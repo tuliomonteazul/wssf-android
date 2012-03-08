@@ -30,20 +30,20 @@ O aplicativo possui 2 tipos de execução: simples e múltipla. Para ambos é ne
 Esse arquivo padrão possui réplicas de um arquivo de 1 mb.
 
 ## Execução Simples
- Exibirá o progresso de todas as invocações e guardará o resultado no arquivo /mnt/sdcard/WSSF/experiments.txt.
+ Exibirá o progresso de todas as invocações e guardará o resultado no arquivo `/mnt/sdcard/WSSF/experiments.txt`.
 
 ## Execução Múltipla
-Invoca sequencialmente várias execuções, determinadas a partir de um arquivo de configuração, e guarda os resultados no arquivo /mnt/sdcard/WSSF/experiments.txt.
-O arquivo de configuração deverá possuir o nome execution-setup e estar guardado na pasta /mnt/sdcard/WSSF/, para definir quais serão as execuções que deverão ser realizadas e qual a quantidade de repetições.
+Invoca sequencialmente várias execuções, determinadas a partir de um arquivo de configuração, e guarda os resultados no arquivo `/mnt/sdcard/WSSF/experiments.txt`.
+O arquivo de configuração deverá possuir o nome `execution-setup` e estar guardado na pasta `/mnt/sdcard/WSSF/`, para definir quais serão as execuções que deverão ser realizadas e qual a quantidade de repetições.
  
 Segue um exemplo desse arquivo:
 
- > repeat 5
- > R1 NO 
- > R1 P
- > R1 FC
- > R1 FR
- > R1 BP[20,0.5]
- > R1 BP[20,1]
- > R1 BP[20,1.5]
+ > repeat 5 </br>
+ > R1 NO </br>
+ > R1 P </br>
+ > R1 FC </br>
+ > R1 FR </br>
+ > R1 BP[20,0.5] </br>
+ > R1 BP[20,1] </br>
+ > R1 BP[20,1.5] </br>
 
