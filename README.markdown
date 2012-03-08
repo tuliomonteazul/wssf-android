@@ -10,7 +10,7 @@ Consiste em adaptar o framework WSSF para a plataforma Android com o objetivo de
 
 # Instalação
 
-Para executá-lo, basta instalar o arquivo wssf-android.apk. Essa instalação pode ser feita através de comandos adb (Android Debug Bridge) ou de gerenciadores de arquivos para o Android.
+Para executá-lo, basta instalar o arquivo `wssf-android.apk`. Essa instalação pode ser feita através de comandos adb (Android Debug Bridge) ou de gerenciadores de arquivos para o Android.
 Um dos mais utilizados é o Astro File Manager. Para instalar com ele, basta ter o `wssf-android.apk` no seu cartão SD e, abrindo o arquivo com o Astro, selecionar a opção Instalar.
 Outro gerenciador que também pode instalar é o Dropbox.
 
@@ -26,6 +26,15 @@ O aplicativo possui 2 tipos de execução: simples e múltipla. Para ambos é ne
  > http://mozilla.phphosts.org/addons/71/enigmail-0.95.1-tb+sm.xpi
  > http://mozilla.saix.net/addons/71/enigmail-0.95.1-tb+sm.xpi
  > http://pv-mirror02.mozilla.org/pub/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
+
+ > repeat 5
+ > R1 NO
+ > R1 P
+ > R1 FC
+ > R1 FR
+ > R1 BP[20,0.5]
+ > R1 BP[20,1]
+ > R1 BP[20,1.5]
 
 Esse arquivo padrão possui réplicas de um arquivo de 1 mb.
 
