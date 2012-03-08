@@ -28,12 +28,19 @@ O aplicativo possui 2 tipos de execução: simples e múltipla. Para ambos é ne
  > http://pv-mirror02.mozilla.org/pub/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
 
  > repeat 5
+
  > R1 NO
+
  > R1 P
+
  > R1 FC
+
  > R1 FR
+
  > R1 BP[20,0.5]
+
  > R1 BP[20,1]
+
  > R1 BP[20,1.5]
 
 Esse arquivo padrão possui réplicas de um arquivo de 1 mb.
