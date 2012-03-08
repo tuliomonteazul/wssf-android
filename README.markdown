@@ -27,21 +27,6 @@ O aplicativo possui 2 tipos de execução: simples e múltipla. Para ambos é ne
  > http://mozilla.saix.net/addons/71/enigmail-0.95.1-tb+sm.xpi
  > http://pv-mirror02.mozilla.org/pub/mozilla.org/addons/71/enigmail-0.95.1-tb+sm.xpi
 
- > repeat 5
-
- > R1 NO
-
- > R1 P
-
- > R1 FC
-
- > R1 FR
-
- > R1 BP[20,0.5]
-
- > R1 BP[20,1]
-
- > R1 BP[20,1.5]
 
 Esse arquivo padrão possui réplicas de um arquivo de 1 mb.
 
@@ -54,12 +39,13 @@ O arquivo de configuração deverá possuir o nome `execution-setup` e estar gua
  
 Segue um exemplo desse arquivo:
 
- > repeat 5 </br>
- > R1 NO </br>
- > R1 P </br>
- > R1 FC </br>
- > R1 FR </br>
- > R1 BP[20,0.5] </br>
- > R1 BP[20,1] </br>
- > R1 BP[20,1.5] </br>
-
+<code>
+repeat 5
+R1 NO
+R1 P
+R1 FC
+R1 FR
+R1 BP[20,0.5]
+R1 BP[20,1]
+R1 BP[20,1.5]
+</code>
