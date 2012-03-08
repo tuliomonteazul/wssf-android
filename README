@@ -3,4 +3,17 @@ WSSF (Web Service Selection Framework)
 Projeto criado no trabalho de conclusão de curso para graduação em Ciência da Computação.
 Consiste em adaptar o framework WSSF para a plataforma Android com o objetivo de realizar experimentos e testar a execução das políticas de seleção de servidores.
 
-Para executá-lo, é necessário que o dispositivo (emulador ou real) possua o arquivo replicas.txt no diretório files dentro da pasta pertencente a aplicação. A classe TextFileReplicaDAO possui a constante com o caminho do arquivo para memória interna ou cartão sd.
+
+# Requisitos:
+ - Certifique-se que o seu dispositivo está com a opção Configurações > Aplicativos > Fontes Desconhecidas marcada, para permitir instalar aplicativos que não são do Market.
+ - É necessário que o dispositivo tenha um cartão SD, pois será criada uma pasta para armazenar os arquivos de configuração.
+
+# Instalação
+
+Para executá-lo, basta instalar o arquivo wssf-android.apk. Essa instalação pode ser feita através de comandos adb (Android Debug Bridge) ou de gerenciadores de arquivos para o Android.
+Um dos mais utilizados é o Astro File Manager. Para instalar com ele, basta ter o wssf-android.apk no seu cartão SD e, abrindo o arquivo com o Astro, selecionar a opção Instalar.
+Outro gerenciador que também pode instalar é o Dropbox.
+
+Esse link mostra detalhadamente 3 maneiras de instalar um apk:
+http://maketecheasier.com/install-applications-without-the-market/2011/01/28
+
