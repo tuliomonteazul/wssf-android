@@ -13,8 +13,6 @@ import br.unifor.wssf.os.DataStorage;
 
 public class TextFileExecutionSetup implements ExecutionSetup {
 	private static final String SETUP_FILE = "execution-setup";
-	private final List<Execution> executions = new ArrayList<Execution>();
-	private final List<Execution> execsToRepeat = new ArrayList<Execution>();
 	private int repeat;
 	
 	private static TextFileExecutionSetup instance;
@@ -46,6 +44,8 @@ public class TextFileExecutionSetup implements ExecutionSetup {
 		final DataStorage dataStorage = new DataStorage();
 		final File file = dataStorage.getFile(SETUP_FILE);
 		final BufferedReader reader = new BufferedReader(new FileReader(file));
+		final List<Execution> executions = new ArrayList<Execution>();
+		final List<Execution> execsToRepeat = new ArrayList<Execution>();
 		
 		String line = reader.readLine();
 		
