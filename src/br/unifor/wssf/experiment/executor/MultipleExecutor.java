@@ -1,8 +1,10 @@
 package br.unifor.wssf.experiment.executor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import br.unifor.wssf.experiment.Experiment;
 import br.unifor.wssf.experiment.execution.Execution;
@@ -17,17 +19,35 @@ public class MultipleExecutor extends Thread {
 	private static final int TENTATIVAS = 3;
 	private final ExecutionLog executionLog;
 	private Context context;
+	private boolean stopRunning = false;
+	private List<Handler> executionStoppedListeners;
 	
 	public MultipleExecutor(Context context, ExecutionLog executionLog) {
 		super();
 		this.context = context;
 		this.executionLog = executionLog;
+		this.executionStoppedListeners = new ArrayList<Handler>();
 	}
 	
 	@Override
 	public void run() {
 		executeExperiments();
 		SoundControl.getInstance(context).beep();
+		fireExecutionStopped();
+	}
+	
+	private void fireExecutionStopped() {
+		for (Handler listener : executionStoppedListeners) {
+			listener.sendEmptyMessage(0);
+		}
+	}
+	
+	public void addExecutionStoppedListener(Handler listener){
+		executionStoppedListeners.add(listener);
+	}
+
+	public void askToStopExecution() {
+		this.stopRunning = true;
 	}
 	
 	public void executeExperiments() {
@@ -45,6 +65,8 @@ public class MultipleExecutor extends Thread {
 			
 			int count = 1;
 			for (Execution execution : executions) {
+				
+				if (stopRunning) break;
 
 				tryToExecute(totalExecucoes, count, execution);
 				
@@ -70,6 +92,8 @@ public class MultipleExecutor extends Thread {
 		int tentativa = 0;
 		while (tentativa < TENTATIVAS) {
 			try {
+				if (stopRunning) break;
+				
 				executionLog.log("Execução "+ count + "/" + totalExecucoes);
 				executionLog.log("Replica: "+ execution.getReplicaToInvoke());
 				executionLog.log("Política: "+ execution.getPolicyId());

@@ -33,12 +33,23 @@ public class MultipleActivity extends Activity {
 
 		btIniciarExperimentos.setOnClickListener(new OnClickListener() {
 
+			private boolean iniciou = false;
+			private MultipleExecutor multipleExecutor;
+			
 			@Override
 			public void onClick(View v) {
-				MultipleExecutor multipleExecutor = new MultipleExecutor(
-						context, logExecucao);
-				multipleExecutor.start();
-				btIniciarExperimentos.setText("Cancelar");
+				if (iniciou) {
+					multipleExecutor.askToStopExecution();
+					btIniciarExperimentos.setEnabled(false);
+					btIniciarExperimentos.setText("Cancelando...");
+					iniciou = false;
+				} else {
+					multipleExecutor = new MultipleExecutor(context, logExecucao);
+					multipleExecutor.start();
+					multipleExecutor.addExecutionStoppedListener(new ChangeButtonIniciarListener(btIniciarExperimentos));
+					btIniciarExperimentos.setText("Cancelar");
+					iniciou = true;
+				}
 			}
 		});
 	}
